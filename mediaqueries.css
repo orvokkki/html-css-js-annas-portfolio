@@ -90,3 +90,59 @@
         text-align: justify;
     }
 }
+
+@media (max-width: 768px) {
+    .projects-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+    }
+    
+    .project-card {
+        padding: 1.25rem;
+    }
+    
+    .project-image-container {
+        height: 180px;
+    }
+
+/* Case study adjustments */
+    .case-study-title {
+        font-size: 2rem;
+    }
+    
+    .case-study-container {
+        padding: 1rem;
+    }
+    
+    .project-meta {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .project-title {
+        font-size: 1.25rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .project-card,
+    .project-img,
+    .tag {
+        transition: none;
+    }
+    
+    .project-card:hover {
+        transform: none;
+    }
+}
+

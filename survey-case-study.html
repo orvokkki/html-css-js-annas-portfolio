@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Tool Case Study - Anna Birdal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mediaqueries.css">
+    <style>
+        /* Custom cursor
+        body {
+            cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">✨</text></svg>'), auto;
+        }  */
+        
+        a, button {
+            cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">👆</text></svg>'), pointer;
+        }
+
+        /* Jump to top button */
+        .jump-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: rgba(238, 244, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(48, 48, 48, 0.15);
+        }
+
+        .jump-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .jump-to-top:hover {
+            transform: translateY(-5px);
+            background: rgb(242, 247, 255);
+        }
+
+        /* Highlighted text */
+        .highlighted-text {
+            position: relative;
+            display: inline-block;
+            font-size: inherit;
+            z-index: 1;
+        }
+
+        .highlighted-text::before {
+            content: '';
+            position: absolute;
+            top: 25%;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background-color: #edfa89;
+            transform: rotate(-1.5deg);
+            z-index: -1;
+            border-radius: 100px;
+        }
+        
+        .case-study-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        
+        .case-study-hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            border-radius: 24px;
+        }
+        
+        .case-study-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: black;
+            margin-bottom: 1rem;
+        }
+        
+        .case-study-subtitle {
+            font-size: 1.2rem;
+            color: rgb(85, 85, 85);
+            margin-bottom: 2rem;
+        }
+
+        /* Hero image - remove shadow and border */
+        .hero-image {
+            width: 100%;
+            border-radius: 0;
+            margin: 2rem 0;
+            box-shadow: none;
+            border: none;
+        }
+        
+        /* Updated project meta grid - 1: New layout with left column for basic info */
+        .project-meta {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .meta-left {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .meta-right {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .meta-item {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .meta-item.impact {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .meta-label {
+            font-weight: 600;
+            color: black;
+            margin-bottom: 0.5rem;
+        }
+        
+        .meta-value {
+            color: rgb(85, 85, 85);
+        }
+        
+        .section-heading {
+            font-size: 2rem;
+            font-weight: 700;
+            color: black;
+            margin: 3rem 0 1rem 0;
+        }
+        
+        .subsection-heading {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: black;
+            margin: 2rem 0 1rem 0;
+        }
+        
+        .case-study-image {
+            width: 100%;
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .case-study-image:hover {
+            transform: scale(1.02);
+        }
+
+        /* 2: Challenge section with two columns */
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .challenge-column {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .challenge-title {
+            font-weight: 600;
+            color: black;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        /* 3: Requirements diagram */
+        .requirements-diagram {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+            margin: 3rem 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .center-circle {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: rgba(237, 250, 137, 0.4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-align: center;
+            border: 2px solid rgba(237, 250, 137, 0.8);
+        }
+
+        .requirement-item {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.8rem 1.2rem;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 0.9rem;
+            font-weight: 500;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .requirement-item:nth-child(2) { top: 10%; left: 20%; }
+        .requirement-item:nth-child(3) { top: 15%; right: 15%; }
+        .requirement-item:nth-child(4) { top: 50%; left: 5%; }
+        .requirement-item:nth-child(5) { top: 50%; right: 5%; }
+        .requirement-item:nth-child(6) { bottom: 15%; left: 25%; }
+        .requirement-item:nth-child(7) { bottom: 10%; right: 20%; }
+
+        /* Expandable images */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .image-grid.two-columns {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        /* 5: Design comparison with arrows */
+        .design-comparison {
+            position: relative;
+            margin: 3rem 0;
+        }
+
+        .version-section {
+            margin-bottom: 3rem;
+        }
+
+    
+
+        .expandable-image {
+            width: 100%;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .expandable-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 32px rgba(96, 96, 96, 0.2);
+        }
+
+        /* 4: Modal for expanded images - improved with scrollable content */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            margin: 2rem auto;
+            display: block;
+            width: 90%;
+            max-width: 900px;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .close {
+            position: fixed;
+            top: 2rem;
+            right: 3rem;
+            color: #333;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2001;
+        }
+
+        .close:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+        
+        .image-caption {
+            text-align: center;
+            font-style: italic;
+            color: rgb(85, 85, 85);
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        /* Remove border-left from highlight boxes */
+        .highlight-box {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+        }
+        
+        /* Remove border-left from requirements list */
+        .requirements-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .requirements-list li {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0.5rem 0;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+        }
+
+        /* 6: Updated results grid - 2 columns, equal alignment */
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .result-item {
+            background: rgba(237, 250, 137, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(237, 250, 137, 0.5);
+            transition: all 0.3s ease;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .result-item:hover {
+            background: rgba(237, 250, 137, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .result-title {
+            font-weight: 600;
+            color: black;
+            margin-bottom: 0.5rem;
+        }
+        
+        .next-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            text-decoration: none;
+            color: black;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 2rem 0;
+        }
+        
+        .next-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(5px);
+        }
+
+        /* Iterations section */
+        .iteration-section {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .case-study-title {
+                font-size: 2rem;
+            }
+            
+            .case-study-container {
+                padding: 1rem;
+            }
+            
+            .project-meta {
+                grid-template-columns: 1fr;
+            }
+
+            .meta-left {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .challenge-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .requirements-diagram {
+                min-height: 300px;
+            }
+
+            .requirement-item {
+                position: relative !important;
+                top: auto !important;
+                left: auto !important;
+                right: auto !important;
+                bottom: auto !important;
+                margin: 0.5rem;
+                display: inline-block;
+            }
+
+            .center-circle {
+                position: relative;
+                width: 150px;
+                height: 150px;
+                margin-bottom: 2rem;
+            }
+
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+
+            
+        
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            body {
+                cursor: auto;
+            }
+            
+            a, button {
+                cursor: pointer;
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <nav id="desktop-nav">
+        <div class="logo"> <img src="assets/logo ab.png" alt="Anna's logo"></div>
+        <div>
+            <ul class="nav-links">
+                <li><a href="index.html">Work</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="about.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <nav id="hamburger-nav">
+        <div class="logo">Anna Birdal</div>
+        <div class="hamburger-menu">
+            <div class="hamburger-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="menu-links">
+                <li><a href="index.html#about" onclick="toggleMenu()">About</a></li>
+                
+                <li><a href="index.html" onclick="toggleMenu()">Work</a></li>
+                <li><a href="about.html#contact" onclick="toggleMenu()">Contact</a></li>
+            </div>
+        </div>
+    </nav>
+
+    <button class="jump-to-top" onclick="scrollToTop()">↑</button>
+
+    <div class="case-study-container">
+        <div class="case-study-hero">
+            <h1 class="case-study-title">Designing a Survey Tool to Drive Engagement and Lead Generation</h1>
+            <p class="case-study-subtitle">Building an integrated feedback system for event organisers and attendees</p>
+            
+            <img src="assets/Survey-yellow bg.png" alt="Survey tool overview" class="hero-image">
+            
+            <div class="project-meta">
+                <div class="meta-left">
+                    <div class="meta-item">
+                        <div class="meta-label">Timeline</div>
+                        <div class="meta-value">4 weeks</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Team</div>
+                        <div class="meta-value">2 designers, 4 developers, 1 product manager</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">My Role</div>
+                        <div class="meta-value">UX/UI designer</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Platform</div>
+                        <div class="meta-value">Desktop (CMS) & Mobile app</div>
+                    </div>
+                </div>
+                <div class="meta-right">
+                    <div class="meta-item impact">
+                        <div class="meta-label">Impact</div>
+                        <div class="meta-value">Enabled event organisers to collect feedback and visitor emails directly inside UpVisit, reducing costs and increasing engagement.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-heading">Project Overview</h2>
+        <p>In August 2024, I worked on building <span class="highlighted-text">&nbsp;a new survey feature&nbsp;</span> for UpVisit. The request came from a major client who wanted to collect visitor feedback during their annual city event. Until then, they had relied on an external survey platform, so our goal was to build a practical and easy-to-use survey feature that is fully embedded within the UpVisit platform and is ready to launch within tight deadlines.</p>
+
+        <h2 class="section-heading">The Challenge</h2>
+        <div class="challenge-grid">
+            <div class="challenge-column">
+                <div class="challenge-title">Event organisers needed a reliable and easy way to:</div>
+                <ul>
+                    <li>Create surveys without leaving the UpVisit platform</li>
+                    <li>Collect visitor feedback and contact information for lead generation</li>
+                    <li>Export results easily for follow-up marketing</li>
+                </ul>
+            </div>
+            
+            <div class="challenge-column">
+                <div class="challenge-title">Event attendees needed:</div>
+                <ul>
+                    <li>Quick participation without sign-ups</li>
+                    <li>Clear, simple question formats</li>
+                    <li>GDPR-compliant data handling</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 class="section-heading">My Approach</h2>
+        <p>Due to time and budget constraints, the feature had to be delivered quickly, without formal user research or extensive testing. So I approached it by:</p>
+
+        <ol>
+            <li><strong>Reusing proven design patterns</strong> from our platform's gamification features to maintain consistency</li>
+            <li><strong>Analysing competitor survey tools</strong> to understand standard flows</li>
+            <li><strong>Referring to the project brief with the list of requirements:</strong> and collaborating with our PM and developers, to ensure feasibility within our timeline</li>
+        </ol>
+
+        
+        <div class="requirements-diagram">
+            <div class="center-circle">Core Requirements</div>
+            <div class="requirement-item">Welcome screen with event branding</div>
+            <div class="requirement-item">Multiple question types</div>
+            <div class="requirement-item">Email collection screen</div>
+            <div class="requirement-item">Thank you page</div>
+            <div class="requirement-item">Results dashboard</div>
+            <div class="requirement-item">Data export from CMS</div>
+        </div>
+
+        <p>Together, all this ensured usability while keeping to time and budget limits.</p>
+
+        <h2 class="section-heading">Design Process</h2>
+        
+        <div class="design-comparison">
+            <div class="version-section">
+                <h3 class="subsection-heading">Version 1: Three-Step Setup</h3>
+                <p>I started with designing a survey flow for the CMS and split it into three stages.</p>
+
+                <div class="image-grid">
+                    <img src="assets/Survey_case study/survey-design-archive/new survey.jpg" alt="Version 1 Step 1" class="expandable-image" onclick="openModal(this)">
+                    <img src="assets/Survey_case study/survey-design-archive/new survey-2.jpg" alt="Version 1 Step 2" class="expandable-image" onclick="openModal(this)">
+                    <img src="assets/Survey_case study/survey-design-archive/new survey-1.jpg" alt="Version 1 Step 3" class="expandable-image" onclick="openModal(this)">
+                </div>
+            </div>
+
+            
+
+            <div class="version-section">
+                <h3 class="subsection-heading">Version 2: Streamlined to Two Steps</h3>
+                <p>After internal review, I simplified to just two stages:</p>
+                <ol>
+                    <li><strong>Basic Information</strong> — survey title, description, availability dates</li>
+                    <li><strong>Survey Content</strong> — question creation and configuration</li>
+                </ol>
+                <p>This reduction helped organisers build surveys faster during testing.</p>
+
+                <div class="image-grid two-columns">
+                    <img src="assets/Survey_case study/new survey/step 1/filled.png" alt="Version 2 Basic Information" class="expandable-image" onclick="openModal(this)">
+                    <img src="assets/Survey_case study/new survey/step 2/dropdown question.png" alt="Version 2 Survey Content" class="expandable-image" onclick="openModal(this)">
+                </div>
+            </div>
+        </div>
+
+        <h3 class="subsection-heading">Mobile Experience</h3>
+        <p>The mobile flow needed to handle multiple states:</p>
+        <ul>
+            <li><strong>Active survey</strong> — ready for responses</li>
+            <li><strong>In progress</strong> — partially completed by user</li>
+            <li><strong>Submitted</strong> — confirmation and next steps</li>
+            <li><strong>Inactive</strong> — survey disabled or expired</li>
+        </ul>
+
+        <img src="assets/mobile-flow.jpg" alt="Mobile survey flow" class="case-study-image" onclick="openModal(this)">
+
+        <div class="iteration-section">
+            <h2 class="section-heading">Iterations</h2>
+            
+            <h3 class="subsection-heading">Multi-Submission Feature</h3>
+            <p>A second client requested the ability for users to retake surveys. I added a toggle option in the CMS and implemented a real-time countdown in the app, showing users when they could participate again.</p>
+
+            <h3 class="subsection-heading">GDPR Compliance</h3>
+            <p>As the feature was adopted by more clients, it became clear that GDPR compliance was essential whenever user data was collected. We added a flexible option allowing event organisers to insert a link to their privacy policy.</p>
+
+            <h3 class="subsection-heading">Integration Flexibility</h3>
+            <p>Though designed as a standalone feature, the survey tool was later integrated into session detail screens, allowing live feedback during presentations and talks.</p>
+        </div>
+
+        <h2 class="section-heading">Results</h2>
+        <div class="results-grid">
+            <div class="result-item">
+                <div class="result-title">Launch Timeline</div>
+                <div>August 2024, on schedule</div>
+            </div>
+            <div class="result-item">
+                <div class="result-title">Immediate Adoption</div>
+                <div>Weindorf Stuttgart and Messe Stuttgart</div>
+            </div>
+            <div class="result-item">
+                <div class="result-title">Cost Reduction</div>
+                <div>Eliminated dependency on third-party survey tools</div>
+            </div>
+            <div class="result-item">
+                <div class="result-title">User Engagement</div>
+                <div>Increased visitor engagement through seamless in-app participation</div>
+            </div>
+        </div>
+
+        <h3 class="subsection-heading">User Feedback</h3>
+        <p>Event organisers appreciated the streamlined setup process, whilst attendees found the surveys quick and non-intrusive. The feature became popular enough that clients from other event segments began requesting it.</p>
+
+        <h2 class="section-heading">What I Learnt</h2>
+        <p>This project taught me valuable lessons about designing under constraints:</p>
+
+        <div class="highlight-box">
+            <p><strong>Consider all edge cases early</strong> — surveys needed clear states for retries, expired availability, and administrative controls.</p>
+            
+            <p><strong>Compliance shapes design</strong> — GDPR requirements influenced both user flows and technical implementation from day one.</p>
+            
+            <p><strong>Simple solutions win</strong> — reducing complexity in the creation flow made the feature more accessible and faster to deploy.</p>
+        </div>
+
+        <p>Working in a fast-paced environment without formal research challenged me to rely more heavily on design patterns, competitor analysis, and close collaboration with development teams. The result was a feature that launched on time and immediately provided value to our clients.</p>
+
+        <a href="index.html#projects" class="next-button">
+            Next Project →
+        </a>
+    </div>
+
+    <!-- Modal for expanded images -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <footer>
+        <p>Copyright &#169; 2025 Anna Birdal. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Jump to top functionality
+        window.addEventListener('scroll', function() {
+            const jumpButton = document.querySelector('.jump-to-top');
+            if (window.scrollY > 300) {
+                jumpButton.classList.add('visible');
+            } else {
+                jumpButton.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Modal functionality
+        function openModal(img) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = "block";
+            modalImg.src = img.src;
+            
+            // Prevent body scroll when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = "none";
+            
+            // Restore body scroll
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on click outside or on escape key
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

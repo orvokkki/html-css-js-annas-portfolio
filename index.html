@@ -6,364 +6,312 @@
     <title>My Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="mediaqueries.css">
+    <style>
+        /* Hero Section Styles */
+        .hero-section {
+            height: 60vh;
+            display: flex;
+            align-items: flex-end;
+            align-content: flex-start;
+            justify-content: left;
+            text-align: left;
+            
+            padding-bottom: 4rem;
+            margin-top: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            
+        
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.2s ease-out 0.3s forwards;
+        }
+
+        .hero-text {
+            font-size: 3rem;
+            font-weight: 500;
+            line-height: 1.2;
+            color: #4f4e4e;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-text .highlight {
+            position: relative;
+            display: flexbox;
+            background: rgb(226, 236, 255);
+            padding: 0;
+            top: 45%;
+            height: 20%;
+            border-radius: 5px;
+            margin: 0 0.2rem;
+        }
+
+        
+       /* Custom cursor for project cards */
+        .project-card {
+            position: relative;
+        }
+
+        /* Floating eyes element */
+        .floating-eyes {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1000;
+            font-size: 24px;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+    
+
+
+        /* Animation keyframes */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Floating elements animation */
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .floating-element:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Projects section adjustment */
+        #projects {
+            margin-top: 4rem;
+        }
+
+        /* Mobile responsiveness */
+        @media screen and (max-width: 768px) {
+            .hero-section {
+                min-height: 70vh;
+                margin-top: 2rem;
+                padding: 1rem;
+            }
+
+            .hero-text {
+                font-size: 2.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+
+            
+        }
+
+        @media screen and (max-width: 480px) {
+            .hero-text {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Desktop Navigation -->
     <nav id="desktop-nav">
-        <div class="logo">Anna Birdal</div>
+        <div class="logo">
+            <img src="assets/logo ab.png" alt="Anna's logo">
+        </div>
         <div>
             <ul class="nav-links">
-            <li><a href="#about">About</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
+                <li><a href="index.html">Work</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="about.html#contact">Contact</a></li>
             </ul>
         </div>
     </nav>
+    <!-- Hamburger Navigation -->
     <nav id="hamburger-nav">
         <div class="logo">Anna Birdal</div>
         <div class="hamburger-menu">
-         <div class="hamburger-icon" onclick="toggleMenu()">
-          <span></span>
-          <span></span>
-          <span></span>
+            <div class="hamburger-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="menu-links">
+                <li><a href="index.html" onclick="toggleMenu()">Work</a></li>
+                <li><a href="about.html" onclick="toggleMenu()">About</a></li>
+                <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+            </div>
         </div>
-        <div class="menu-links">
-         <li><a href="#about" onclick="toggleMenu()">About</a></li>
-         <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
-         <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
-         <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
-        </div>
-    </div>
     </nav>
-    <section id="profile">
-        <div class="section__pic-container">
-            <img src="./assets/anna-profile-pic.png" alt="Anna profile picture"> 
-        </div>
-        <div class="section__text">
-            <p class="section__text__p1">Hello, I'm</p>
-            <h1 class="title">Anna Birdal</h1>
-            <p class="section__text__p2">UX/UI Designer</p>
-            <div class="btn-container">
-                <button class="btn btn-color-2" onclick="window.open('./assets/resume-example.pdf')"
-                >
-                Download CV
-            </button>
-                <button class="btn btn-color-1" onclick="location.href='./#contact'">
-                Contact Info
-            </button>
-            </div>
-            <div id="socials-container">
-                <img src="./assets/linkedin.png" alt="My LinkedIn profile"
-                class="icon" onclick="location.href='https://www.linkedin.com/in/annabirdal/'"
-                />
-                <img src="./assets/github.png" alt="My Github profile"
-                class="icon" onclick="location.href='https://github.com/'"
-                />
-            </div>
-        </div>
-    </section>
-    <section id="about">
-        <p class="section__text__p1">Get To Know More</p>
-        <h1 class="title">About Me</h1>
-        <div class="section-container">
-            <div class="section__pic-container">
-                <img 
-                src="./assets/about-pic.png" 
-                alt="Profile picture"
-                class="about-pic"
-                />
-            </div>
-            <div class="about-details-container">
-                <div class="about-containers">
-                    <div class="details-container">
-                        <img 
-                        src="./assets/experience.png" 
-                        alt="Experience icon"
-                        class="icon"
-                        />
-                        <h3>Experience</h3>
-                        <p>2+ years <br>UX/UI Design</p>
-                    </div>
-                    <div class="details-container">
-                        <img 
-                        src="./assets/education.png" 
-                        alt="Education icon"
-                        class="icon"
-                        />
-                        <h3>Education</h3>
-                        <p>B.Sc. bachelors <br>M.SC. Random degree</p>
-                    </div>
-                </div>
-                <div class="text-container">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed velit mollitia adipisci nobis, voluptate, porro magni fugiat quas aliquid ipsum odit nisi obcaecati vitae, dolore ea blanditiis? Quibusdam voluptate itaque quaerat ratione ullam assumenda reprehenderit ducimus sint nostrum qui eum eos praesentium sunt, doloremque suscipit, ex, commodi veniam laborum est?
-                    </p>
-                </div>
-            </div>
-        </div>
-        <img 
-        src="./assets/arrow.png" 
-        alt="Arrow icon" 
-        class="icon arrow"
-        onclick="location.href='./#experience'" 
-        />
-    </section>
-    <section id="experience">
-        <p class="section__text__p1">Explore My</p>
-        <h1 class="title">Experience</h1>
-        <div class="experience-details-container">
-            <div class="about-containers">
-                <div class="details-container">
-                    <h2 class="experience-sub-title">UX/UI Design</h2>
-                    <div class="article-container">
-                        <article>
-                            <img 
-                            src="./assets/checkmark.png" 
-                            alt="Experience icon"
-                            class="icon"
-                            />
-                            <div>
-                                <h3>HTML</h3>
-                                <p>Experienced</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img 
-                            src="./assets/checkmark.png" 
-                            alt="Experience icon"
-                            class="icon"
-                            />
-                            <div>
-                                <h3>CSS</h3>
-                                <p>Experienced</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img 
-                            src="./assets/checkmark.png" 
-                            alt="Experience icon"
-                            class="icon"
-                            />
-                            <div>
-                                <h3>SASS</h3>
-                                <p>Intermediate</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img 
-                            src="./assets/checkmark.png" 
-                            alt="Experience icon"
-                            class="icon"
-                            />
-                            <div>
-                                <h3>Javasdript</h3>
-                                <p>Basic</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img 
-                            src="./assets/checkmark.png" 
-                            alt="Experience icon"
-                            class="icon"
-                            />
-                            <div>
-                                <h3>TypeScript</h3>
-                                <p>Basic</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img 
-                            src="./assets/checkmark.png" 
-                            alt="Experience icon"
-                            class="icon"
-                            />
-                            <div>
-                                <h3>Material UI</h3>
-                                <p>Experienced</p>
-                            </div>
-                        </article>
-                    </div>
-                </div> 
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <!-- Floating background elements -->
+        <div class="floating-element" style="width: 60px; height: 60px; background: rgba(237, 250, 137, 0.3); border-radius: 50%;"></div>
+        <div class="floating-element" style="width: 80px; height: 80px; background: rgba(255, 255, 255, 0.2); border-radius: 20px; backdrop-filter: blur(10px);"></div>
+        <div class="floating-element" style="width: 40px; height: 40px; background: rgba(237, 250, 137, 0.4); border-radius: 50%;"></div>
         
-                <div class="details-container">
-                    <h2 class="experience-sub-title">UX/UI Design</h2>
-                    <div class="article-container">
-                        <article>
-                            <img 
-                            src="./assets/checkmark.png" 
-                            alt="Experience icon"
-                            class="icon"
-                            />
-                            <div>
-                                <h3>HTML</h3>
-                                <p>Experienced</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img 
-                            src="./assets/checkmark.png" 
-                            alt="Experience icon"
-                            class="icon"
-                            />
-                            <div>
-                                <h3>SQL</h3>
-                                <p>Basic</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img 
-                            src="./assets/checkmark.png" 
-                            alt="Experience icon"
-                            class="icon"
-                            />
-                            <div>
-                                <h3>Node JS</h3>
-                                <p>Intermediate</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img 
-                            src="./assets/checkmark.png" 
-                            alt="Experience icon"
-                            class="icon"
-                            />
-                            <div>
-                                <h3>ExpressJS</h3>
-                                <p>Basic</p>
-                            </div>
-                        </article>
-                        <article>
-                            <img 
-                            src="./assets/checkmark.png" 
-                            alt="Experience icon"
-                            class="icon"
-                            />
-                            <div>
-                                <h3>Git</h3>
-                                <p>Basic</p>
-                            </div>
-                        </article>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-        <img 
-        src="./assets/arrow.png" 
-        alt="Arrow icon" 
-        class="icon arrow"
-        onclick="location.href='./#projects'" 
-        />
+        <div class="hero-content">
+            <h1 class="hero-text">
+                I'm Anna, a Berlin-based UX/UI designer <span class="highlight">creating</span> <span class="highlight">SaaS</span> <span class="highlight">experiences</span> <span class="highlight">that</span> <span class="highlight">connect</span> businesses with their audiences.
+            </h1>
+           
         
+        </div>
     </section>
+    
+    <!-- Projects Section -->
     <section id="projects">
-        <p class="section__text__p1">Browse My Recent</p>
-        <h1 class="title">Projects</h1>
-        <div class="experience-details-container">
-            <div class="about-containers">
-            <div class="details-container color-container">
-                <div class="article-container">
-                    <img src="./assets/project-1.png" alt="Project 1"
-                    class="project-img"
-                    />
+        <h2 class="section-title">Selected projects</h2>
+        
+        <div class="projects-container">
+            <!-- Project 1 -->
+            <article class="project-card" tabindex="0" role="button" aria-label="Memory-Training Mobile App">
+                <div class="project-image-container">
+                    <img src="assets/case study 1.png" alt="Memory-Training Mobile App" class="project-img">
                 </div>
-                <h2 class="experience-sub-title project-title">Project One</h2>
-                <div class="btn-container">
-                    <button 
-                    class="btn btn-color-2 project-btn" 
-                    onclick="location.href='https://github.com'">
-                        Github
-                    </button>
-                    <button 
-                    class="btn btn-color-2 project-btn" 
-                    onclick="location.href='https://github.com'">
-                        Live Demo
-                    </button>
+                <div class="project-content">
+                    <h3 class="project-title">Memory-Training Mobile App</h3>
+                    <p class="project-description">
+                        A comprehensive health monitoring app designed to help users track their wellness journey with intuitive interfaces and real-time data visualisation.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Mobile Design</span>
+                        <span class="tag">Health</span>
+                        <span class="tag">User Research</span>
+                    </div>
                 </div>
-            </div>
-            <div class="details-container color-container">
-                <div class="article-container">
-                    <img src="./assets/project-2.png" alt="Project 2"
-                    class="project-img"
-                    />
+            </article>
+            <!-- Project 2 -->
+            <a href="survey-case-study.html" class="project-card" tabindex="0" role="button" aria-label="Lead-Generating Survey Feature">
+                <div class="project-image-container">
+                    <img src="assets/case study 2.png" alt="Survey Feature" class="project-img">
                 </div>
-                <h2 class="experience-sub-title project-title">Project Two</h2>
-                <div class="btn-container">
-                    <button 
-                    class="btn btn-color-2 project-btn" 
-                    onclick="location.href='https://github.com'">
-                        Github
-                    </button>
-                    <button 
-                    class="btn btn-color-2 project-btn" 
-                    onclick="location.href='https://github.com'">
-                        Live Demo
-                    </button>
+                <div class="project-content">
+                    <h3 class="project-title">Lead-Generating Survey Feature</h3>
+                    <p class="project-description">
+                        Complete redesign of an online marketplace focusing on customer support integration and streamlined user experience.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Web Design</span>
+                        <span class="tag">Mobile Design</span>
+                        <span class="tag">CMS</span>
+                        <span class="tag">Gamification</span>
+                    </div>
                 </div>
-            </div>
-            <div class="details-container color-container">
-                <div class="article-container">
-                    <img src="./assets/project-3.png" alt="Project 3"
-                    class="project-img"
-                    />
+            </a>
+            <!-- Project 3 -->
+            <article class="project-card" tabindex="0" role="button" aria-label="Pricing Pop-up">
+                <div class="project-image-container">
+                    <img src="assets/case study 3.png" alt="Pricing Pop-up" class="project-img">
                 </div>
-                <h2 class="experience-sub-title project-title">Project Three</h2>
-                <div class="btn-container">
-                    <button 
-                    class="btn btn-color-2 project-btn" 
-                    onclick="location.href='https://github.com'">
-                        Github
-                    </button>
-                    <button 
-                    class="btn btn-color-2 project-btn" 
-                    onclick="location.href='https://github.com'">
-                        Live Demo
-                    </button>
+                <div class="project-content">
+                    <h3 class="project-title">Pricing Pop-Up</h3>
+                    <p class="project-description">
+                        Data visualisation dashboard for startups to track key metrics and business growth with intuitive charts.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Web Design</span>
+                        <span class="tag">CMS</span>
+                    </div>
                 </div>
-            </div>
-        </div>
-        </div>
-         <img 
-        src="./assets/arrow.png" 
-        alt="Arrow icon" 
-        class="icon arrow"
-        onclick="location.href='./#projects'" 
-        />
-    </section>
-    <section id="contact">
-        <p class="section__text__p1">Get in Touch</p>
-        <h1 class="title">Contact Me</h1>
-        <div class="contact-info-upper-container">
-            <div class="contact-info-container">
-                <img 
-                src="./assets/email.png" 
-                alt="Email icon" 
-                class="icon contact-icon email-icon"
-                />
-                <p><a href="mailto:anna.birdal@gmail.com">anna.birdal@gmail.com</a></p>
-            </div>
-            <div class="contact-info-container">
-                <img 
-                src="./assets/linkedin.png" 
-                alt="linkedin icon" 
-                class="icon contact-icon"
-                />
-                <p><a href="https://www.linkedin.com/annabirdal">LinkedIn</a></p>
-            </div>
+            </article>
+            <!-- Project 4 -->
+            <article class="project-card" tabindex="0" role="button" aria-label="Business Matchmaking">
+                <div class="project-image-container">
+                    <img src="assets/case study 4 - MM.png" alt="Business Matchmaking" class="project-img">
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">Business Matchmaking</h3>
+                    <p class="project-description">
+                        Modern mobile banking experience focusing on accessibility and simplified financial management.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Mobile App</span>
+                        <span class="tag">Networking</span>
+                        <span class="tag">B2C</span>
+                    </div>
+                </div>
+            </article>
         </div>
     </section>
+
+    <div class="floating-eyes" id="floatingEyes">👀</div>
+
+    <!-- Footer -->
     <footer>
-        <nav>
-            <div class="nav-links-container">
-                <ul class="nav-links">
-            <li><a href="#about">About</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-            </ul>
-            </div>
-        </nav>
-        <p>Copyright &#169; 2025 Anna Birdal. All Rights Reserved.</p>
+        <p>Copyright &#169; 2025 Anna Birdal</p> <br>
+        <p><a href="impressum.html" target="_blank">Imprint</a></p>
+        <p><a href="agb.html" target="_blank">Privacy</a></p>
     </footer>
+
+    
+
+
     <script src="script.js"></script>
+    <script>
+        
+
+        // Add subtle parallax effect to floating elements
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelectorAll('.floating-element');
+            const speed = 0.5;
+
+            parallax.forEach(element => {
+                const yPos = -(scrolled * speed);
+                element.style.transform = `translate3d(0, ${yPos}px, 0)`;
+            });
+        });
+
+// Add floating eyes functionality
+        const floatingEyes = document.getElementById('floatingEyes');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        // Mouse move handler for floating eyes
+        function handleMouseMove(e) {
+            floatingEyes.style.left = e.clientX + 20 + 'px';
+            floatingEyes.style.top = e.clientY - 20 + 'px';
+        }
+
+        // Show eyes when hovering over project cards
+        projectCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                floatingEyes.style.opacity = '1';
+                document.addEventListener('mousemove', handleMouseMove);
+            });
+
+            card.addEventListener('mouseleave', () => {
+                floatingEyes.style.opacity = '0';
+                document.removeEventListener('mousemove', handleMouseMove);
+            });
+        });
+
+    </script>
 </body>
 </html>

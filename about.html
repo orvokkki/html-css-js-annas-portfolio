@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About | Anna Birdal</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="mediaqueries.css" />
+    <style>
+        /* Profile section layout */
+        .profile-container {
+            display: flex;
+            justify-content: center;
+            gap: 5rem;
+            
+            margin: 4rem 0;
+            padding: 0 2rem;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 999px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            display: flex;    
+            margin: auto 0;
+
+            
+        }
+
+        .profile-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-color-1 {
+            background: #333;
+            color: white;
+        }
+
+        .btn-color-1:hover {
+            background: #555;
+        }
+
+        .btn-color-2 {
+            background: transparent;
+            color: #333;
+            border: 2px solid #333;
+        }
+
+        .btn-color-2:hover {
+            background: #333;
+            color: white;
+        }
+
+        /* Experience and Education section */
+        .experience-education-section {
+            margin: 4rem 0;
+            padding: 0 2rem;
+            max-height: 500px;
+        
+        }
+
+        .exp-edu-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .experience-column h2,
+        .education-column h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333333;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 24px;
+            width: 2px;
+            height: calc(100% + 8px);
+            background: linear-gradient(to bottom, #c5d7ef, rgba(192, 194, 194, 0.3));
+        }
+
+        .timeline-dot {
+            width: 24px;
+            height: 24px;
+            background: #c5d7ef;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-content .company {
+            font-weight: 500;
+            color: #666;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-content .duration {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* Skills section */
+        .skills-section {
+            margin: 4rem 0;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 20px;
+        }
+
+        .skills-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .skills-intro {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 3rem;
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skill-category {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 2rem 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-category h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .skill-tag {
+            background: #333;
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: #555;
+        }
+
+        /* Outside work section */
+        .outside-work-section {
+            margin: 4rem 0;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+        .outside-work-section h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .outside-work-intro {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Smaller photos section */
+        .additional-photos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: auto;
+            margin: 3rem 0;
+            padding: 0 2rem;
+        }
+
+        .additional-photos img {
+            width: auto;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 0px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Existing sections */
+        .section {
+            margin: 4rem 0;
+            padding: 0 2rem;
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        .drawing-carousel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .drawing-carousel img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .volunteer-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .volunteer-gallery img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Contact section */
+        #contact {
+            margin: 4rem 0;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .contact-info-upper-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-info-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Mobile responsiveness */
+        @media screen and (max-width: 768px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .exp-edu-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .skills-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .additional-photos {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info-upper-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-container {
+                justify-content: center;
+            }
+
+            .skills-section h2 {
+                font-size: 2rem;
+            }
+
+            .outside-work-section h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Desktop Navigation -->
+<nav id="desktop-nav">
+    <div class="logo">
+        <img src="assets/logo ab.png" alt="Anna's logo">
+    </div>
+    <div>
+        <ul class="nav-links">
+            <li><a href="index.html">Work</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hamburger Navigation -->
+<nav id="hamburger-nav">
+    <div class="logo">Anna Birdal</div>
+    <div class="hamburger-menu">
+        <div class="hamburger-icon" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="menu-links">
+            <li><a href="index.html" onclick="toggleMenu()">Work</a></li>
+            <li><a href="about.html" onclick="toggleMenu()">About</a></li>
+            <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <!-- Profile Section with Image and Text Side by Side -->
+    <section class="profile-container">
+        <div class="profile-image-container">
+            <img src="assets/anna-profile-pic.png" alt="Anna Birdal profile picture" class="profile-image">
+        </div>
+        <div class="profile-content">
+            <h1>Hello, I'm Anna</h1>
+            <p class="intro-text">
+                A UX/UI designer who combines a deep understanding of people with a love for art. My journey began in sales for a home renovation company and in customer support at Airbnb, where I learned the value of listening and addressing user needs. Now, with having the experience of designing for a tech startup, I enjoy creating practical digital solutions that are user-friendly, aligned with business goals, and ready for smooth implementation.
+            </p>
+            <div class="btn-container">
+                <button class="btn btn-color-1" onclick="location.href='#contact'">
+                    Contact Info
+                </button>
+                <button class="btn btn-color-2" onclick="window.open('assets/Anna_Birdal-UX_resume.pdf')">
+                    Resume
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience and Education Section -->
+    <section class="experience-education-section">
+        <div class="exp-edu-container">
+            <div class="experience-column">
+                <h2>Work Experience</h2>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>UX/UI Designer</h3>
+                        <p class="company">UpVisit</p>
+                        <p class="duration">2023–2024</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Support Ambassador</h3>
+                        <p class="company">Webhelp, for Airbnb</p>
+                        <p class="duration">2020–2022</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Sales & Operations</h3>
+                        <p class="company">Arcade Green</p>
+                        <p class="duration">2016–2020</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="education-column">
+                <h2>Education</h2>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>UX Design program</h3>
+                        <p class="company">Career Foundry</p>
+                        <p class="duration">2023</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Google UX Design Professional Certificate</h3>
+                        <p class="company">Coursera</p>
+                        <p class="duration">2022</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>M.A in Language and English Literature</h3>
+                        <p class="company">Vinnytsia State Mykhailo Kotsyubynskyi Pedagogical University of Ukraine</p>
+                        <p class="duration">2016</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section">
+        <h2>Skills & Tools</h2>
+        <p class="skills-intro">Here's what I bring to the table</p>
+        
+        <div class="skills-container">
+            <div class="skill-category">
+                <div class="skill-icon">🎨</div>
+                <h3>Design</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Figma</span>
+                    <span class="skill-tag">Adobe Creative Suite</span>
+                    <span class="skill-tag">Sketch</span>
+                    <span class="skill-tag">Prototyping</span>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <div class="skill-icon">🔍</div>
+                <h3>Research</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">User Interviews</span>
+                    <span class="skill-tag">Usability Testing</span>
+                    <span class="skill-tag">Analytics</span>
+                    <span class="skill-tag">A/B Testing</span>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <div class="skill-icon">💻</div>
+                <h3>Development</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">HTML/CSS</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">React Basics</span>
+                    <span class="skill-tag">Responsive Design</span>
+                </div>
+            </div>
+            
+            <div class="skill-category">
+                <div class="skill-icon">🤝</div>
+                <h3>Collaboration</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Cross-functional Teams</span>
+                    <span class="skill-tag">Design Systems</span>
+                    <span class="skill-tag">Agile/Scrum</span>
+                    <span class="skill-tag">Stakeholder Management</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Photos Section -->
+    <section class="additional-photos">
+        <img src="assets/selected portfolio photos/DSC01997.jpg" alt="Portrait of Anna Birdal at work" />
+        <img src="assets/selected portfolio photos/DSC02031.jpg" alt="Portrait of Anna Birdal with design sketches" />
+    </section>
+
+    <!-- What I Do Outside Work Section -->
+    <section class="outside-work-section">
+        <h2>What do I do outside work?</h2>
+        <p class="outside-work-intro">Beyond pixels and prototypes, here's where I find inspiration</p>
+    </section>
+
+    
+
+    <!-- Drawing Hobby Section -->
+    <section class="section" id="drawing-hobby">
+        <h2>Drawing (Hobby)</h2>
+        <div class="drawing-carousel">
+            <img src="assets/drawing1.jpg" alt="Sketchbook page: abstract portrait" />
+            <img src="assets/drawing2.jpg" alt="Ink drawing: floral composition" />
+        </div>
+    </section>
+
+    <!-- Volunteer Work Section -->
+    <section class="section" id="volunteer-work">
+        <h2>Volunteer Work</h2>
+        <div class="volunteer-gallery">
+            <img src="assets/charity1.png" alt="Charity campaign Instagram slide 1" />
+            <img src="assets/charity2.png" alt="Charity campaign Instagram slide 2" />
+        </div>
+    </section>
+</main>
+
+<!-- Contact Section -->
+<section id="contact">
+    <p class="section__text__p1">Get in Touch</p>
+    <h1 class="title">Contact Me</h1>
+    <div class="contact-info-upper-container">
+        <div class="contact-info-container">
+            <img src="assets/email.png" alt="Email icon" class="icon contact-icon email-icon" />
+            <p><a href="mailto:anna.birdal@gmail.com">anna.birdal@gmail.com</a></p>
+        </div>
+        <div class="contact-info-container">
+            <img src="assets/linkedin.png" alt="linkedin icon" class="icon contact-icon" />
+            <p><a href="https://www.linkedin.com/annabirdal">LinkedIn</a></p>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2025 Anna Birdal.</p>
+    <a href="impressum.html" target="_blank">Impressum</a> | <a href="agb.html" target="_blank">AGB</a>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
