@@ -92,11 +92,28 @@
 }
 
 @media (max-width: 768px) {
+
+    nav {
+    padding: 0 3%; /* Slightly smaller padding on mobile */
+    }
+    
+    #hamburger-nav {
+        padding: 1rem 3%;
+    }
+
+    #projects {
+        padding-left: 3%;
+        padding-right: 3%;}
+
     .projects-container {
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
     
+     section {
+     margin: 0 3%;
+    }
+
     .section-title {
         font-size: 2.5rem;
     }
@@ -108,6 +125,17 @@
     .project-image-container {
         height: 180px;
     }
+
+     footer {
+        padding: 2rem 3%;
+    }
+    
+    .logo img {
+        height: 48px;
+        width: 48px;
+        padding: 6px;
+    }
+}
 
 /* Case study adjustments */
     .case-study-title {
@@ -121,7 +149,6 @@
     .project-meta {
         grid-template-columns: 1fr;
     }
-}
 
 
 @media (max-width: 480px) {
@@ -143,6 +170,27 @@
     
     .project-card:hover {
         transform: none;
+    }
+
+    nav {
+        padding: 0 2%;
+    }
+    
+    #hamburger-nav {
+        padding: 1rem 2%;
+    }
+    
+    section {
+        margin: 0 2%;
+    }
+    
+    #projects {
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+    
+    footer {
+        padding: 1.5rem 2%;
     }
 }
 

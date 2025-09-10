@@ -7,13 +7,14 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="mediaqueries.css" />
     <style>
+
+
         /* Profile section layout */
         .profile-container {
             display: flex;
             justify-content: center;
             gap: 5rem;
-            
-            margin: 4rem 0;
+            margin: 4rem 5%; /* Match nav padding */
             padding: 0 2rem;
         }
 
@@ -82,8 +83,8 @@
 
         /* Experience and Education section */
         .experience-education-section {
-            margin: 4rem 0;
-            padding: 0 2rem;
+            margin: 4rem 5%; /* Match nav padding */
+            padding: 0;
             max-height: 500px;
         
         }
@@ -151,89 +152,58 @@
         }
 
         /* Skills section */
-        .skills-section {
-            margin: 4rem 0;
-            padding: 4rem 2rem;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-radius: 20px;
-        }
+   
+.skills-section {
+    margin: 2rem 5%; /* Match nav padding */
+    padding: 0;
+}
 
-        .skills-section h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #333;
-            text-align: center;
-            margin-bottom: 0.5rem;
-        }
+.skills-section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 2rem;
+    text-align: center;
+}
 
-        .skills-intro {
-            text-align: center;
-            font-size: 1.1rem;
-            color: #666;
-            margin-bottom: 3rem;
-        }
+.skills-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    justify-content: center;
+}
 
-        .skills-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+/* Pastel tag styles matching the site's aesthetic */
+.skill-tag {
+    background: rgba(197, 215, 239, 0.2); /* Soft blue-gray to match timeline dots */
+    color: #4f4e4e;
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(197, 215, 239, 0.3);
+    display: inline-block;
+}
 
-        .skill-category {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 2rem 1.5rem;
-            border-radius: 16px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+.skill-tag:hover {
+    background: #c5d7ef; /* Match timeline dot color on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(197, 215, 239, 0.4);
+    color: #333;
+}
 
-        .skill-category:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
 
-        .skill-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
 
-        .skill-category h3 {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 1.5rem;
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            justify-content: center;
-        }
-
-        .skill-tag {
-            background: #333;
-            color: white;
-            padding: 0.4rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: background 0.3s ease;
-        }
-
-        .skill-tag:hover {
-            background: #555;
-        }
 
         /* Outside work section */
         .outside-work-section {
-            margin: 4rem 0;
-            padding: 0 2rem;
+            margin: 1.5rem 5%; /* Match nav padding */
+            padding: 0;
             text-align: center;
+            max-height: 300px;
         }
 
         .outside-work-section h2 {
@@ -247,19 +217,40 @@
             font-size: 1.1rem;
             line-height: 1.6;
             color: #666;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        /* Smaller photos section */
+        /* Animate outside-work-section text */
+.outside-work-section .outside-work-intro,
+.outside-work-section h2 {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
+}
+
+.outside-work-section.animated h2 {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.1s;
+}
+
+.outside-work-section.animated .outside-work-intro {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.5s;
+}
+
+        /* Additional photos section */
         .additional-photos {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: auto;
-            margin: 3rem 0;
-            padding: 0 2rem;
+            margin: 3rem 5%; /* Match nav padding */
+            padding: 0;
+            
         }
 
         .additional-photos img {
@@ -272,9 +263,9 @@
 
         /* Existing sections */
         .section {
-            margin: 4rem 0;
-            padding: 0 2rem;
-        }
+    margin: 4rem 5%; /* Match nav padding */
+    padding: 0;
+}
 
         .section h2 {
             font-size: 2rem;
@@ -283,36 +274,228 @@
             margin-bottom: 1.5rem;
         }
 
-        .drawing-carousel {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-        }
+/* Drawing section - Add spacing and implement expandable gallery */
+#drawing-hobby {
+    margin: 3rem 5%; /* Slightly reduced from 4rem */
+    padding: 0;
+}
 
-        .drawing-carousel img {
-            width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-        }
+#drawing-hobby h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1rem; /* Add space after title */
+}
+
+.drawing-description {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 2rem; /* Add space before gallery */
+    max-width: 800px;
+}
+
+        .drawing-carousel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.drawing-carousel img {
+  
+    flex: 1; /* Each image takes equal width */
+    height: auto;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    object-fit: cover;
+    box-shadow: 0 4px 4px rgba(183, 187, 193, 0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.drawing-carousel img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+
+/* Hide images beyond first 3 by default */
+.drawing-carousel.collapsed img:nth-child(n+4) {
+    display: none;
+}
+
+/* Show More/Less Button */
+.show-more-btn {
+    margin-top: 1.5rem;
+    padding: 0.8rem 2rem;
+    background: transparent;
+    color: #333;
+    border: 2px solid #333;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Nexa', sans-serif;
+}
+
+.show-more-btn:hover {
+    background: #333;
+    color: white;
+}
+
+/* Fix Jump to Top Button */
+.jump-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    background: rgba(238, 244, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(85, 84, 84, 0.15);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.jump-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.jump-to-top:hover {
+    transform: translateY(-5px);
+    background: rgb(242, 247, 255);
+}
+
+/* Remove carousel arrows since we're using expand/collapse */
+.carousel-arrow {
+    display: none;
+}
+
+/* Mobile responsiveness for drawing gallery */
+@media screen and (max-width: 768px) {
+    .drawing-carousel {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .drawing-carousel img {
+        height: 200px;
+    }
+    
+    /* Show only 2 images on mobile when collapsed */
+    .drawing-carousel.collapsed img:nth-child(n+3) {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .drawing-carousel {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Show only 2 images on small mobile when collapsed */
+    .drawing-carousel.collapsed img:nth-child(n+3) {
+        display: none;
+    }}
+
+/* Volunteer Work Section */
+#volunteering {
+    margin: 4rem 5%;
+    padding-top: 3rem;
+
+   
+}
+
+    #volunteering h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 2rem;
+    text-align: left;}
+
+   .volunteer-content-wrapper {
+    display: flex;
+    gap: 2.5rem; /* Increase this value for more space */
+    align-items: flex-start;
+    flex-wrap: wrap;
+   
+
+}
+
+        
 
         .volunteer-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
+            display: flex;
+            flex-direction: row;
+            align-items: stretch; /* Make all images same height */
+    width: 100%; /* Full screen width */
+    gap: 1rem; /* No gap for seamless look - can adjust if needed */
+    
         }
 
         .volunteer-gallery img {
-            width: 100%;
-            border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-        }
+     flex: 1; /* Each image takes equal width */
+    width: 25%; /* Each image takes 1/4 of screen width */
+   
+    object-fit: cover; /* Crop nicely to fill space */
+    box-shadow: 0 4px 4px rgba(183, 187, 193, 0.1);
+    transition: transform 0.3s ease, filter 0.3s ease;
+    border-radius: 5px;
+        } 
+
+        /* Mobile responsiveness */
+@media screen and (max-width: 768px) {
+    .volunteer-gallery {
+        flex-wrap: wrap;
+    }
+    
+    .volunteer-gallery img {
+        width: 50%; /* 2 images per row on tablet */
+        height: 250px;
+    }
+    
+    .volunteer-text {
+        margin: 0 3% 2rem 3%;
+    }
+    
+    #volunteering h2 {
+        margin-left: 3%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .volunteer-gallery img {
+        width: 100%; /* Stack images vertically on mobile */
+        height: 200px;
+    }
+    
+    .volunteer-text {
+        margin: 0 2% 1.5rem 2%;
+    }
+    
+    #volunteering h2 {
+        margin-left: 2%;
+    }
+}
 
         /* Contact section */
-        #contact {
-            margin: 4rem 0;
-            padding: 2rem;
-            text-align: center;
-        }
+       #contact {
+    margin: 4rem 5%; /* Match nav padding */
+    padding: 2rem 0;
+    text-align: center;
+}
 
         .contact-info-upper-container {
             display: flex;
@@ -375,7 +558,36 @@
             .outside-work-section h2 {
                 font-size: 1.8rem;
             }
+
+    .profile-container,
+    .experience-education-section,
+    .skills-section,
+    .outside-work-section,
+    .additional-photos,
+    .section,
+    #contact {
+        margin-left: 3%;
+        margin-right: 3%;
+    }
+
         }
+
+@media screen and (max-width: 480px) {
+    .profile-container,
+    .experience-education-section,
+    .skills-section,
+    .outside-work-section,
+    .additional-photos,
+    .section,
+    #contact {
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+}
+
+
+
+
     </style>
 </head>
 <body>
@@ -383,7 +595,7 @@
 <!-- Desktop Navigation -->
 <nav id="desktop-nav">
     <div class="logo">
-        <img src="assets/logo ab.png" alt="Anna's logo">
+        <img src="assets/logos/logo ab.png" alt="Anna's logo">
     </div>
     <div>
         <ul class="nav-links">
@@ -410,6 +622,8 @@
         </div>
     </div>
 </nav>
+
+<button class="jump-to-top" onclick="scrollToTop()">↑</button>
 
 <main>
     <!-- Profile Section with Image and Text Side by Side -->
@@ -496,85 +710,88 @@
 
     <!-- Skills Section -->
     <section class="skills-section">
-        <h2>Skills & Tools</h2>
-        <p class="skills-intro">Here's what I bring to the table</p>
+    <h2>Skills & Tools</h2>
+    
+    <div class="skills-wrapper">
+        <span class="skill-tag">#Figma</span>
+        <span class="skill-tag">#User research</span>
+        <span class="skill-tag">#Prototyping</span>
+        <span class="skill-tag">#Basic HTML/CSS</span>
+        <span class="skill-tag">#Vibe coding</span>
+        <span class="skill-tag">#Usability testing</span>
+       
+        <span class="skill-tag">#Design systems</span>
         
-        <div class="skills-container">
-            <div class="skill-category">
-                <div class="skill-icon">🎨</div>
-                <h3>Design</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">Figma</span>
-                    <span class="skill-tag">Adobe Creative Suite</span>
-                    <span class="skill-tag">Sketch</span>
-                    <span class="skill-tag">Prototyping</span>
-                </div>
-            </div>
-            
-            <div class="skill-category">
-                <div class="skill-icon">🔍</div>
-                <h3>Research</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">User Interviews</span>
-                    <span class="skill-tag">Usability Testing</span>
-                    <span class="skill-tag">Analytics</span>
-                    <span class="skill-tag">A/B Testing</span>
-                </div>
-            </div>
-            
-            <div class="skill-category">
-                <div class="skill-icon">💻</div>
-                <h3>Development</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">HTML/CSS</span>
-                    <span class="skill-tag">JavaScript</span>
-                    <span class="skill-tag">React Basics</span>
-                    <span class="skill-tag">Responsive Design</span>
-                </div>
-            </div>
-            
-            <div class="skill-category">
-                <div class="skill-icon">🤝</div>
-                <h3>Collaboration</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">Cross-functional Teams</span>
-                    <span class="skill-tag">Design Systems</span>
-                    <span class="skill-tag">Agile/Scrum</span>
-                    <span class="skill-tag">Stakeholder Management</span>
-                </div>
-            </div>
-        </div>
-    </section>
+        <span class="skill-tag">#AB testing</span>
+        <span class="skill-tag">#Accessibility</span>
+        <span class="skill-tag">#Cross-functional teams</span>
+        
+        <span class="skill-tag">#Responsive design</span>
+        <span class="skill-tag">#Design Handoff</span>
+        <span class="skill-tag">#Wireframing</span>
+        <span class="skill-tag">#Information architecture</span>
+    </div>
+</section>
+              
 
     <!-- Additional Photos Section -->
     <section class="additional-photos">
-        <img src="assets/selected portfolio photos/DSC01997.jpg" alt="Portrait of Anna Birdal at work" />
-        <img src="assets/selected portfolio photos/DSC02031.jpg" alt="Portrait of Anna Birdal with design sketches" />
+        <img src="assets/selected portfolio photos/DSC01997.jpg" alt="Anna's photo 1" />
+        <img src="assets/selected portfolio photos/DSC02031.jpg" alt="Anna's photo 2" />
     </section>
 
     <!-- What I Do Outside Work Section -->
     <section class="outside-work-section">
         <h2>What do I do outside work?</h2>
-        <p class="outside-work-intro">Beyond pixels and prototypes, here's where I find inspiration</p>
+        <p class="outside-work-intro">Beyond pixels and prototypes, here's where I find inspiration:</p>
     </section>
 
     
 
     <!-- Drawing Hobby Section -->
-    <section class="section" id="drawing-hobby">
-        <h2>Drawing (Hobby)</h2>
-        <div class="drawing-carousel">
-            <img src="assets/drawing1.jpg" alt="Sketchbook page: abstract portrait" />
-            <img src="assets/drawing2.jpg" alt="Ink drawing: floral composition" />
-        </div>
-    </section>
+  <section class="section" id="drawing-hobby">
+    <h2>Drawing (Hobby)</h2>
+    <p class="drawing-description">
+        Art has always been my creative outlet. I especially enjoy drawing portraits and nature elements.
+    </p>
+    <div class="drawing-carousel collapsed">
+        <img src="assets/drawings/bird.jpeg" alt="A bird drawing" />
+        <img src="assets/drawings/bell pepper.jpeg" alt="A bell pepper" />
+        <img src="assets/drawings/fruit.jpeg" alt="A fruit" />
+        <img src="assets/drawings/0001.jpg" alt="A woman's portrait" />
+        <img src="assets/drawings/0002.jpg" alt="A tiger" />
+        <img src="assets/drawings/0003.jpg" alt="A dog in colour" />
+        <img src="assets/drawings/0005.jpg" alt="A man's portrait" />
+        <img src="assets/drawings/0007.jpg" alt="A man's portrait 2" />
+        <img src="assets/drawings/0008.jpg" alt="A cat's portrait" />
+        <img src="assets/drawings/0010.jpg" alt="A woman's portrait" />
+        <img src="assets/drawings/0011.jpg" alt="A cat's portrait" />
+        <img src="assets/drawings/0016.jpg" alt="A pug's portrait" />
+    </div>
+    <button class="show-more-btn" onclick="toggleGallery()">Show More</button>
+</section>
+
+<!-- Add this HTML right after your drawing gallery section -->
+<div class="image-modal" id="imageModal">
+    <div class="modal-content-wrapper">
+        <span class="close-modal" onclick="closeImageModal()">&times;</span>
+        <img class="modal-image" id="modalImage" src="" alt="">
+    </div>
+</div>
+
+
 
     <!-- Volunteer Work Section -->
-    <section class="section" id="volunteer-work">
+    <section class="section" id="volunteering">
         <h2>Volunteer Work</h2>
+       <div class="volunteer-content-wrapper">
+        <p>During my collaboration with a fundraising campaign supporting orphaned children with disabilities in Dnipro city, Ukraine, I designed attention-grabbing Instagram slides for a couple of upcoming campaigns. Our goal was to craft visuals for easy reposting on Instagram. And as a result, it helped to increase shares and raise money faster compared to a previous campaign, and I was immensely happy that my skills were used this cause.</p>
         <div class="volunteer-gallery">
-            <img src="assets/charity1.png" alt="Charity campaign Instagram slide 1" />
-            <img src="assets/charity2.png" alt="Charity campaign Instagram slide 2" />
+            <img src="assets/volunteer project/IMG_9240.jpg" alt="Charity campaign Instagram slide 1" />
+            <img src="assets/volunteer project/IMG_9241.jpg" alt="Charity campaign Instagram slide 2" />
+            <img src="assets/volunteer project/IMG_9242.jpg" alt="Charity campaign Instagram slide 3" />
+            <img src="assets/volunteer project/IMG_9243.jpg" alt="Charity campaign Instagram slide 4" /> 
+            </div>
         </div>
     </section>
 </main>
@@ -596,12 +813,13 @@
 </section>
 
 <!-- Footer -->
-<footer>
-    <p>&copy; 2025 Anna Birdal.</p>
-    <a href="impressum.html" target="_blank">Impressum</a> | <a href="agb.html" target="_blank">AGB</a>
+    <footer>
+    <p>Copyright &#169; 2025 Anna Birdal</p>
+    <p><a href="imprint.html">Imprint</a></p>
 </footer>
 
 <script src="script.js"></script>
+
 
 </body>
 </html>

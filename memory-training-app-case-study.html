@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainBoostr Case Study - Anna Birdal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mediaqueries.css">
+    <style>
+        /* Jump to top button */
+        .jump-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: rgba(238, 244, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(85, 84, 84, 0.15);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .jump-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .jump-to-top:hover {
+            transform: translateY(-5px);
+            background: rgb(242, 247, 255);
+        }
+
+        /* Highlighted text */
+        .highlighted-text {
+            position: relative;
+            display: inline-block;
+            font-size: inherit;
+            z-index: 1;
+        }
+
+        .highlighted-text::before {
+            content: '';
+            position: absolute;
+            top: 25%;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background-color: #eaf3ff; /* Brand light blue */
+            transform: rotate(0deg);
+            z-index: -1;
+            border-radius: 100px;
+        }
+        
+        .case-study-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        
+        .case-study-hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            border-radius: 24px;
+        }
+        
+        .case-study-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: black;
+            margin-bottom: 1rem;
+        }
+        
+        .case-study-subtitle {
+            font-size: 1.2rem;
+            color: rgb(85, 85, 85);
+            margin-bottom: 2rem;
+        }
+
+        /* Hero image - remove shadow and border */
+        .hero-image {
+            width: 100vw;
+            max-width: 100vw;
+            min-width: 100vw;
+            margin-left: 50%;
+            transform: translateX(-50%);
+            border-radius: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+            box-shadow: none;
+            border: none;
+            display: block;
+        }
+        
+        /* Project meta grid */
+        .project-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            margin: 2rem 0;
+        }
+
+        .meta-row-top {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr 2.2fr;
+            gap: 1.2rem;
+            align-items: stretch;
+        }
+
+        .meta-row-top .meta-item {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 120px;
+            min-height: 100%;
+            box-sizing: border-box;
+        }
+
+        .meta-item-left {
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .meta-item-middle {
+            /* No extra width, keep it compact */
+        }
+
+        .meta-item-tools {
+            /* Make tools column wider */
+        }
+
+        .meta-item-double {
+            flex: 2 1 0;
+        }
+
+        .meta-item-wide {
+            flex: 3 1 0;
+        }
+
+        .meta-row-brief {
+            width: 100%;
+        }
+
+        .meta-row-brief .meta-item.impact {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+            text-align: left;
+        }
+
+        .meta-label {
+            font-weight: 600;
+            color: black;
+            margin-bottom: 0.3rem;
+            font-size: 1rem;
+        }
+        
+        .meta-value {
+            color: rgb(85, 85, 85);
+            font-size: 1rem;
+        }
+        
+        .section-heading {
+            font-size: 2rem;
+            font-weight: 700;
+            color: black;
+            margin: 3rem 0 1rem 0;
+        }
+        
+        .subsection-heading {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: black;
+            margin: 2rem 0 1rem 0;
+        }
+        
+        .case-study-image {
+            width: 100%;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        /* Expandable images */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .image-grid.single {
+            grid-template-columns: 1fr;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .expandable-image {
+            width: 100%;
+            border-radius: 12px;
+        }
+
+        /* Modal for expanded images */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            margin: 2rem auto;
+            display: block;
+            width: 90%;
+            max-width: 900px;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .close {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            color: #333;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2001;
+            line-height: 1;
+        }
+
+        .close:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+        
+        .image-caption {
+            text-align: center;
+            font-style: italic;
+            color: rgb(85, 85, 85);
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .highlight-box {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+        }
+
+        .numerated-list {
+            list-style: decimal inside;
+            padding-left: 0.5rem;
+        }
+
+        /* Quote box */
+        .quote-box {
+            background: none;
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 1.5rem 1.5rem 2rem;
+            margin: 2rem 0;
+            font-style: italic;
+            text-align: left;
+            font-size: 1.1rem;
+            border-left: 5px solid #eaf3ff; /* Add vertical line */
+        }
+
+        /* Statistics grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: black;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: rgb(85, 85, 85);
+            font-size: 0.9rem;
+        }
+
+        /* Insights list */
+        .insights-list {
+            background: rgba(255, 255, 255, 0.1);
+            
+            border-radius: 16px;
+            margin:  0;
+        }
+
+        .insights-list ul {
+            list-style: disc inside;
+            padding-left: 0.5rem;
+        }
+
+        .insights-list li {
+            background: none;
+            margin: 1rem 0;
+            padding: 0.2rem 0 0.2rem 0;
+            border-radius: 0;
+            border-left: none;
+        }
+
+        /* Next button */
+        .next-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            text-decoration: none;
+            color: black;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 1rem 0;
+        }
+        
+        .next-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(5px);
+        }
+
+        .prototype-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: rgba(237, 250, 137, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(237, 250, 137, 0.6);
+            border-radius: 50px;
+            text-decoration: none;
+            color: black;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 2rem 0;
+        }
+
+        .prototype-link:hover {
+            background: rgba(237, 250, 137, 0.6);
+            transform: translateY(-2px);
+        }
+
+        @media screen and (max-width: 768px) {
+            .case-study-title {
+                font-size: 2rem;
+            }
+            
+            .case-study-container {
+                padding: 1rem;
+            }
+            
+            .project-meta {
+                grid-template-columns: 1fr;
+            }
+
+            .meta-left {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .meta-row-top {
+                grid-template-columns: 1fr;
+            }
+            .meta-item, .meta-item-left, .meta-item-middle, .meta-item-tools {
+                min-width: 0;
+            }
+        }
+
+        /* Introduction section styles */
+        .introduction-section {
+            display: flex;
+            gap: 2.5rem;
+            margin: 2.5rem 0 2rem 0;
+            align-items: stretch;
+            flex-wrap: wrap;
+        }
+
+        .intro-left {
+            background: #eaf3ff;
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            flex: 1 1 280px;
+            min-width: 260px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            box-sizing: border-box;
+        }
+
+        .intro-right {
+            flex: 2 1 350px;
+            min-width: 260px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            justify-content: flex-start;
+        }
+
+        .intro-block {
+            margin-bottom: 0.5rem;
+        }
+
+        .intro-label {
+            font-weight: 600;
+            color: black;
+            margin-bottom: 0.2rem;
+            font-size: 1.05rem;
+        }
+        
+        .intro-value {
+            color: #222;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .intro-steps {
+            margin: 0.5rem 0 0 1.2rem;
+            padding: 0;
+            font-size: 1rem;
+        }
+
+        .intro-steps li {
+            margin: 0.5rem;
+        }
+
+        
+
+        .intro-steps li:hover {
+            color: rgba(255, 255, 255, 0.3);
+            transform: translateX(5px);
+            
+        }
+
+     
+       
+        @media (max-width: 900px) {
+            .introduction-section {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .intro-left, .intro-right {
+                min-width: 0;
+                width: 100%;
+            }
+        }
+
+        .animated-banner {
+            width: 100%;
+            border: 2.5px solid #eaf3ff;
+            border-radius: 18px;
+            margin: 2rem 0 3rem 0;
+            overflow: hidden;
+            background: #fff;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
+            display: flex;
+            align-items: center;
+            min-height: 100px;
+        }
+        .animated-banner.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .banner-content {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            gap: 2rem;
+            padding: 1rem 2rem;
+            
+        }
+        .banner-title h2 {
+            margin: 0;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #1a3a5d;
+        }
+        .banner-illustration img {
+            display: block;
+            background: #eaf3ff;
+            border-radius: 12px;
+            width: 200px;
+            height: auto;
+            object-fit: cover;
+        }
+        @media (max-width: 700px) {
+            .banner-content {
+                flex-direction: column-reverse;
+                align-items: flex-start;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            .banner-title h2 {
+                font-size: 1.2rem;
+            }
+            .banner-illustration img {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        .problem-blocks-section {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr auto 1fr;
+            align-items: stretch;
+            gap: 2rem;
+            margin: 3rem 0 6rem 0;
+            width: 100%;
+        }
+
+        .problem-block {
+            background: #f7faff;
+            color: #333;
+            border-radius: 20px;
+            padding: 2rem 2rem 2rem 2rem;
+            font-size: 1rem;
+            line-height: 1.6;
+            text-align: left;
+            display: flex;            /* enable flexbox */
+    flex-direction: column;   /* stack text normally */
+    justify-content: center;  /* center vertically */
+    align-items: stretch;      
+            min-width: 0;
+            min-height: 100%;
+            width: 100%;
+        }
+
+        .problem-block a {
+    white-space: nowrap; /* prevents line breaks inside links */
+    
+}
+
+
+        .problem-arrow {
+            font-size: 2.5rem;
+            
+            color: #1a3a5d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+            min-height: 100%;
+        }
+
+        @media (max-width: 900px) {
+            .problem-blocks-section {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+                width: 100%;
+            }
+            .problem-arrow {
+                transform: rotate(90deg);
+                font-size: 2rem;
+                min-width: unset;
+            }
+        }
+
+        .case-study-container p,
+        .case-study-container ol,
+        .case-study-container ul,
+        .case-study-container .insights-list,
+        .case-study-container .highlight-box {
+            margin-bottom: 1.5rem;
+        }
+
+        .case-study-container ol,
+        .case-study-container ul {
+            margin-top: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Design system grid */
+        .design-system-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        /* Affinity map grid */
+        .affinity-map-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .design-system-grid,
+            .affinity-map-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+   
+
+footer p {
+    text-align: center;
+    font-family: 'Nexa', sans-serif;
+    margin-left: -2rem;
+    color: rgb(85, 85, 85);
+}
+
+footer a {
+    font-family: 'Nexa', sans-serif;
+    color: rgb(85, 85, 85);
+    text-decoration: none;
+    transition: all 300ms ease;
+}
+
+footer a:hover {
+    color: black;
+    text-decoration: none;
+    text-underline-offset: 0.3rem;
+}
+
+    </style>
+</head>
+<body>
+    <nav id="desktop-nav">
+        <div class="logo"> <img src="assets/logos/logo ab.png" alt="Anna's logo"></div>
+        <div>
+            <ul class="nav-links">
+                <li><a href="index.html">Work</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="about.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <nav id="hamburger-nav">
+        <div class="logo">Anna Birdal</div>
+        <div class="hamburger-menu">
+            <div class="hamburger-icon" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="menu-links">
+                <li><a href="index.html" onclick="toggleMenu()">Work</a></li>
+                <li><a href="about.html" onclick="toggleMenu()">About</a></li>
+                <li><a href="about.html#contact" onclick="toggleMenu()">Contact</a></li>
+            </div>
+        </div>
+    </nav>
+
+    <button class="jump-to-top" onclick="scrollToTop()">↑</button>
+
+    <div class="case-study-container">
+        <div class="case-study-hero">
+            <h1 class="case-study-title">BrainBoostr Memory-Training App</h1>
+            <p class="case-study-subtitle">BrainBoostr is a study project app I designed during my bootcamp. It helps individuals train their cognitive abilities to keep their minds sharp and reduce the risk of dementia in later life.</p>
+
+            <!-- [IMAGE PLACEHOLDER: Hero image/mockup of BrainBoostr app] -->
+            <img src="assets/Brainboostr/brainbooster hero image V1.png" alt="BrainBoostr app mockup" class="hero-image">
+
+            <!-- Introduction Section Title -->
+            <h2 class="section-heading" style="margin-top:2.5rem; text-align: left;">Introduction</h2>
+
+            <div class="project-meta">
+                <div class="meta-row meta-row-top">
+                    <div class="meta-item meta-item-left">
+                        <div>
+                            <div class="meta-label">Duration</div>
+                            <div class="meta-value">March - July 2023</div>
+                        </div>
+                        <div style="margin-top:1rem;">
+                            <div class="meta-label">Platform</div>
+                            <div class="meta-value">Responsive web app</div>
+                        </div>
+                    </div>
+                    <div class="meta-item meta-item-middle">
+                        <div class="meta-label">My Role</div>
+                        <div class="meta-value">UX/UI Designer responsible for all the aspects from conception to delivery</div>
+                    </div>
+                    <div class="meta-item meta-item-tools">
+                        <div class="meta-label">Tools</div>
+                        <div class="meta-value">
+                            User research: Google Forms, FigJam, sticky notes, Slack, Zoom<br>
+                            Wireframing &amp; prototyping: pen and paper, Figma<br>
+                            User testing and results analysing: Google Sheets, Optimal Workshop, UsabilityHub, Zoom
+                        </div>
+                    </div>
+                </div>
+                <div class="meta-row meta-row-brief">
+                    <div class="meta-item impact">
+                        <div class="meta-label">Project Brief</div>
+                        <div class="meta-value">
+                            "Allow health-conscious individuals to log in to a responsive health and well-being portal to record their health and medical information, as well as access general physical and mental well-being features".
+                        </div> <br>
+                        <p class="meta-value">From general well-being, I decided to <span class="highlighted-text">narrow down the topic and shift the focus to cognitive abilities and memory</span> in particular. Originally, I intended to create a product for preventing memory loss, however, it became clear that at the moment there may not be any individuals with matching criteria to test it, and even if there are, I had to admit I was not ready to face the ethical side of it. Therefore, the scope and the target audience have been generalised.</p>
+                        <!-- Steps List Below Project Brief -->
+                        <div class="intro-block" style="margin-top:1.5rem;">
+                            <div class="intro-label" style="font-weight:600;">Steps</div>
+                            <ol class="intro-steps">
+                                <li><a href="#competitive-audit">Competitive audit</a></li>
+                                <li><a href="#user-research-surveys">User research</a></li>
+                                <li><a href="#personas-user-flows">Personas and user flows</a></li>
+                                <li><a href="#design">Design</a></li>
+                                <li><a href="#testing">User testing</a></li>
+                                <li><a href="#implementation">Design implementation & refinement</a></li>
+                                
+                            </ol>
+                        </div>
+                        <!-- Jump to summary link -->
+                        <a href="#summary" class="next-button">Jump to Summary ↓</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Animated Banner for User research Section -->
+        <div class="animated-banner" id="user-research">
+            <div class="banner-content">
+                <div class="banner-illustration">
+                    <img src="assets/brainboostr/illustrations/User research.jpg" alt="User research Illustration">
+                </div>
+                <div class="banner-title">
+                    <h2>User Research</h2>
+                </div>
+            
+            </div>
+        </div>
+
+        <p>First of all, I started by <span class="highlighted-text">defining a problem:</span></p>
+        <div class="problem-blocks-section">
+            <div class="problem-block">
+                Currently, more than 55 million people have dementia worldwide which not only strains families and healthcare systems but also burdens societies economically <span class="nowrap-link">(<a href="https://www.who.int/news-room/fact-sheets/detail/dementia" target="_blank">source</a>)</span>
+            </div>
+            <div class="problem-arrow">
+                <span>&#8594;</span>
+            </div>
+            <div class="problem-block">
+                However, changing the risk factors that can be influenced, around 4 in 10 cases of dementia could be prevented <span class="nowrap-link">(<a href="https://www.nhs.uk/conditions/dementia/dementia-prevention/" target="_blank">source</a>)</span>
+            </div>
+            <div class="problem-arrow">
+                <span>&#8594;</span>
+            </div>
+            <div class="problem-block">
+                A proactive approach that offers evidence-backed exercises that enhance memory, attention, and problem-solving abilities and is supported by research on factors like physical activity and social engagement positively impacting cognitive skills, is vital
+            </div>
+        </div>
+        <p>Based on this, <span class="highlighted-text">a problem statement and a hypothesis</span> were created:</p>
+          
+
+        <div class="quote-box">
+            Our users between 35-55 need a way to check/improve/maintain their cognitive abilities because they wish to keep their minds sharp as they age and minimise the risks of dementia.<br><br>
+            We will know this to be true when we see how many users use our app on a daily/weekly basis and leave good reviews.
+        </div>
+
+        <p id="competitive-audit">And to understand how existing products approach the problem, I have conducted a <span class="highlighted-text">competitive analysis</span></p>
+
+        <div class="image-grid">
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <img src="assets/brainboostr/swot profile 1.png" alt="SWOT Profile of Silvia App" class="case-study-image" style="max-width: 100%; width: 100%;"/>
+                <div class="image-caption">SWOT PROFILE OF SILVIA APP</div>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <img src="assets/brainboostr/swot profile 2.png" alt="SWOT Profile of Lumosity" class="case-study-image" style="max-width: 100%; width: 100%;"/>
+                <div class="image-caption">SWOT PROFILE OF LUMOSITY</div>
+            </div>
+        </div>
+
+        <p id="user-research-surveys">The next step was launching <span class="highlighted-text">screener surveys</span> to</p>
+        <ol class="numerated-list">
+            <li class="point">learn about users' general awareness of memory and cognitive decline,</li>
+            <li class="point">to prepare the ground for interview scripts,</li>
+            <li class="point">to find individuals who qualify and may be potentially interested in interview participation.</li>
+        </ol>
+
+        <p style="margin-bottom: -0.5rem;">Although I have received only 15 responses and we know this is not enough for surveys, they still helped to notice some common patterns in users' approach to the given problem.</p>
+         <a href="https://drive.google.com/file/d/1jHD4Rj5jDCfoLisiWcB_1IllyV7kj_t2/view?usp=sharing" class="next-button">
+            View results →
+        </a>
+        
+
+        <p>To understand users' pain points, interests, motivation and preferences deeper, I have conducted <span class="highlighted-text">6 in-person and online interviews</span> with individuals within the targeted age range who had tried before and/or are interested in brain-training activities such as solving crossword puzzles, learning foreign languages, etc. <span class="highlighted-text">The unexpected takeaway</span> for me was that some participants shared sensitive information about their experiences or cognitive health, and that made me think more about users' privacy, therefore their names or any other PII have not been mentioned anywhere.</p>
+
+        <div class="insights-list">
+            <h4>Some insights from the user interviews include:</h4>
+            <ul>
+                <li>Potential users have insignificant concerns about their cognitive abilities (for example, birthdays, phone numbers and short-term memory stuff) > so they need a tool that would motivate and strengthen their ability to memorise.</li>
+                <li>Some users would be interested in information about how to test your brain or how to improve your memory in a video format or a bite-sized piece of text information > so they may benefit from a tip-of-the-day feature.</li>
+                <li>Some users are discouraged by extra difficult and tedious or, on the contrary, very easy tasks > so they need a personal approach and tailored exercises for their preferred level and needs.</li>
+                <li>Potential users like different activities that include puzzle-type games, crossword puzzles, learning foreign languages, gaming, communicating, walking, and performing tasks that require fine motor skills > so they need a product that will offer a selection of these activities.</li>
+                <li>As for the design, potential users like visual connection to the content, gamified components (such as badges, streaks, achievements to close, positive feedback), a library with valid information, small lessons, and arrangement from easy to hard levels > so we can consider implementing these components into our project app.</li>
+                <li>All interview participants believe that cognitive abilities can be influenced and memory loss can be slowed down to a certain degree through training your brain, healthy sleeping and nutrition exercising > so the product should help to integrate these activities into a daily or weekly routine.</li>
+                <li>All of the participants also see a correlation between cognitive abilities performance and social engagement, especially in the older age > so the product can introduce announcements and registration for online and offline group events for like-minded individuals.</li>
+            </ul>
+        </div>
+
+        <p>Collected data from the interviews has been organised in affinity and empathy maps (the larger version of the digital map can be viewed <a href="https://drive.google.com/file/d/1slii1jtJ5l-c5nvycLsDw4wt-yMGPl14/view?usp=sharing" target="_blank">here</a>):</p>
+
+        <!-- 2. Affinity and empathy maps: non-clickable, same height -->
+        <div class="affinity-map-grid">
+            <img src="assets/brainboostr/affinity map 1.png" alt="Affinity map 1" class="case-study-image">
+            <img src="assets/brainboostr/affinity map 2.png" alt="Affinity map 2" class="case-study-image">
+        </div>
+
+        <p id="personas-user-flows">Based on the insights from the user interviews, I have created two user personas to see potential users as real people and to keep the focus on their needs, goals and frustrations while designing the app later:</p>
+
+        <!-- User personas without grid wrapper -->
+        <img src="assets/brainboostr/persona 1.png" alt="User persona 1" class="case-study-image">
+        <img src="assets/brainboostr/persona 2.png" alt="User persona 2" class="case-study-image">
+
+        <p>To visualise a journey and experiences a potential user might have while trying to reach their goal in the app, I have created <span class="highlighted-text"> user journeys:</span></p>
+
+        <!-- [IMAGE PLACEHOLDER: User journey map] -->
+        <caption class="image-caption">User Journey for Irene:</caption>
+        <img src="assets/brainboostr/user journey 1.png" alt="Rachel's user journey" class="case-study-image">
+        
+
+        <p>Check Rachel's user journey <a href="https://drive.google.com/file/d/1q1l0Kd1x_pFLcvQbeudOx1fBftxmcBYQ/view?usp=sharing" target="_blank">here</a>.</p>
+        <p>To understand potential users' interaction with the product and specific tasks they may complete, I mapped out three task and user flows on the example of the first persona:</p>
+
+        <div class="user-flow-section" style="display: flex; flex-wrap: wrap; gap: 2.5rem; align-items: flex-start; margin-bottom: 2.5rem;">
+    <!-- Left column: Text and bullets -->
+    <div class="user-flow-text" style="flex: 1 1 340px; min-width: 280px; max-width: 520px;">
+        
+        <h4 style="margin-top: 1.2rem; font-size: 1.1rem; font-weight: 700;">TASK AND USER FLOW #1 FOR IRENE:</h4>
+        <ul style="padding: 0; font-size: 1rem; list-style: none;">
+            <li><strong>Goal:</strong> sign up and start brain training</li>
+            <li><strong>Entry point:</strong> open the platform</li>
+            <li><strong>Success criteria:</strong> complete a daily brain-training exercise</li>
+        </ul>
+        <ol style="margin: 1.2rem 0 1.2rem 1.2rem; font-size: 1rem;">
+            <li>Launch BrainBoostr</li>
+            <li>Create an account</li>
+            <li>Log in</li>
+            <li>Onboarding</li>
+            <li>Answer questions to get a tailored brain-training exercise plan</li>
+            <li>Play a brain-training game</li>
+        </ol>
+        <p style="margin-top: 1.2rem;">The rest of the task and user flows can be viewed <a href="https://drive.google.com/file/d/1XvaWx_Q_3AoJ3uAWoKv8B9W1zhipljuk/view?usp=sharing" target="_blank">here</a>.</p>
+    </div>
+    <!-- Right column: Image -->
+    <div class="user-flow-image" style="flex: 1 1 340px; min-width: 280px; max-width: 600px; display: flex; flex-direction: column; align-items: center;">
+        <img src="assets/brainboostr/task and user flow.png" alt="Task and user flows" class="case-study-image" style="margin-bottom: 0.7rem;">
+        <div class="image-caption">Task and User Flow #1 for Irene</div>
+    </div>
+</div>
+
+
+<!-- Animated Banner for Section 2-->
+        <div class="animated-banner" id="design">
+            <div class="banner-content">
+                <div class="banner-illustration">
+                    <img src="assets/brainboostr/illustrations/design.jpg" alt="Design">
+                </div>
+                <div class="banner-title">
+                    <h2>Design</h2>
+                </div>
+            
+            </div>
+        </div>
+
+        <p>I was very excited to enter the ideation phase and started it by building a <span class="highlighted-text">sitemap </span> to understand how to structure the sections of my web app, how its content is going to be organised and how users will navigate through it. To validate these ideas, I have conducted <span class="highlighted-text"> open card sorting</span> (check the full report of the process <a href="https://drive.google.com/file/d/1VtOoB1-xZP4TRa3cHCN1Doc0x2kaLufr/view?usp=sharing" target="_blank">here</a>) and after combining its results with my mentor's feedback, the IA of the app has been shaped into this:</p>
+
+        <!-- [IMAGE PLACEHOLDER: Information architecture/sitemap] -->
+        <img src="assets/brainboostr/sitemap.png" alt="Information architecture" class="case-study-image">
+
+        <p>Then I started sketching <span class="highlighted-text"> paper wireframes</span> for onboarding and three main features. The following one represents a flow for Playing a game for brain training:</p>
+
+        <!-- [IMAGE PLACEHOLDER: Paper wireframes] -->
+        <img src="assets/brainboostr/wireframe app+web.png" alt="Paper wireframes" class="case-study-image">
+
+        <p>After I was satisfied with how the main screens and flows looked, I transferred them into a digital <span class="highlighted-text"> mid-fidelity format </span> using Figma and started preparing for the first usability study:</p>
+        <img src="assets/brainboostr/wireframes mobile row.png" alt="Digital wireframes" class="case-study-image">
+
+        <!-- Animated Banner for Section 3-->
+        <div class="animated-banner" id="testing">
+            <div class="banner-content">
+                <div class="banner-illustration">
+                    <img src="assets/brainboostr/illustrations/testing.jpg" alt="Testing">
+                </div>
+                <div class="banner-title">
+                    <h2>Testing</h2>
+                </div>
+            
+            </div>
+        </div>
+
+        <p>This stage was no less exciting than the previous one, due to fresh perspectives and insights gained from participants who were <span class="highlighted-text"> 6 individuals from my personal network and student community</span> between 30-50 y.o. and who have engaged in a brain-training activity at least once (to ensure they are close to the target audience of BrainBoostr). Their basic demographic information can be checked <a href="https://docs.google.com/spreadsheets/d/1jyDfAaLwyXkXlfNYuTfUBgCyPHqhmCNracIA_lySnoE/edit?usp=sharing" target="_blank">here</a> and for a detailed look at the Test Script, including a list of all tasks tested, feel free to explore <a href="https://drive.google.com/file/d/1smUPDniOfrCjMjNRnt4ZRi72TA1GKkrj/view?usp=sharing" target="_blank">the complete script</a>.</p>
+
+        <p>All <span class="highlighted-text"> online and moderated in-person</span> sessions went well, and since it was emphasised that we were testing not participants but a product, I have managed to gather quite a lot of valuable feedback (the detailed version of the usability test results is <a href="https://drive.google.com/file/d/1smUPDniOfrCjMjNRnt4ZRi72TA1GKkrj/view?usp=sharing" target="_blank">here</a>):</p>
+       
+        <div class="image-grid">
+            <img src="assets/brainboostr/affinity map.png" alt="Affinity map" class="case-study-image">
+            <img src="assets/brainboostr/rainbow .png" alt="Rainbow spreadsheet" class="case-study-image">
+            <p style="font-size: 0.9rem; color: #555">
+        Excerpts from the affinity map and rainbow spreadsheet</p>
+        </div>
+
+        <div class="insights-list">
+            <p>My <span class="highlighted-text"> general findings</span> from this usability study were that</p>
+            <ul>
+                <li>It is necessary to check links before sending to avoid sending wrong links and followed delays</li>
+                <li>It is better to allocate more buffer time and set more time for each session in case some of them take longer</li>
+                <li>A moderator should be ready to improvise and modify the test script when needed.</li>
+            </ul>
+        </div>
+
+        <p>And as for the <span class="highlighted-text">app iterations</span>, I have grouped the issues by severity from high (preventing users from completing the main user flow or from using a core feature) to low and updated the prototype. Here are several examples of followed updates:</p>
+
+        <!-- [IMAGE PLACEHOLDER: Before and after usability test iterations] -->
+        <div class="image-grid" style="grid-template-columns: repeat(3, 1fr);">
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <img src="assets/brainboostr/iteration 1.png" alt="Before usability test iterations" class="expandable-image" style="height: 300px">
+                <div class="image-caption">1. Renamed Medical help into Check-up</div>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <img src="assets/brainboostr/iteration 2.png" alt="After usability test iterations" class="expandable-image" style="height: 300px">
+                <div class="image-caption">2. Reduced texts in the app</div>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <img src="assets/brainboostr/iteration 3.png" alt="Further usability improvements" class="expandable-image" style="height: 300px">
+                <!-- No caption for the third image as requested -->
+            </div>
+        </div>
+
+        <!-- Animated Banner for Next Section -->
+        <div class="animated-banner" id="implementation">
+            <div class="banner-content">
+                <div class="banner-illustration">
+                    <img src="assets/brainboostr/illustrations/implementation.jpg" alt="Implementation">
+                </div>
+                <div class="banner-title">
+                    <h2>Implementation</h2>
+                </div>
+            </div>
+        </div>
+
+        <p>After ensuring that the app functionality and navigation have been clear to users and usability issues have been fixed, it was finally time to move to the most enjoyable and creative part - <span class="highlighted-text"> adding typography, colours and images</span> and polishing the design.</p>
+        <img src="assets/brainboostr/hi-fi app+web.png" alt="Hi-fi prototype" class="case-study-image">
+
+        <p>To gain consistency, keep the assets, colours and fonts in one style and get ready for a potential hand-off, I have documented the <span class="highlighted-text">app design system</span> (full version is <a href="https://drive.google.com/file/d/16VhhPaLUlOEaveTJv22xwn43lWtIzIbW/view?usp=sharing" target="_blank">here</a>):</p>
+
+        <!-- Design system images in grid -->
+        <div class="design-system-grid">
+            <img src="assets/brainboostr/design system 1.png" alt="Design system 1" class="case-study-image" style="height: 300px; object-fit: cover;">
+            <img src="assets/brainboostr/design system 2.png" alt="Design system 2" class="case-study-image" style="height: 300px; object-fit: cover;">
+            <img src="assets/brainboostr/design system 3.png" alt="Design system 3" class="case-study-image" style="height: 300px; object-fit: cover;">
+            </div>
+
+        <p>Further iterations were influenced by <span class="highlighted-text">design collaboration</span> sessions (=feedback from fellow designers) and by checking <span class="highlighted-text">accessibility guidelines</span>:</p>
+
+         <!-- 2x2 grid with text above each image -->
+<div class="iteration-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0;">
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <div class="image-caption" style="margin-bottom: 0.25rem;">Button "Ready" has been renamed into "Done" because it was more expected and conventional for this flow</div>
+        <img src="assets/brainboostr/next iteration 1.png" alt="Before: Button Ready" class="case-study-image">
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <div class="image-caption" style="margin-bottom: 0.25rem;">Some colours have been adjusted to increase the contrast, and some texts have been removed from images to increase readability:</div>
+        <img src="assets/brainboostr/next iteration 2.png" alt="After: Button Done" class="case-study-image">
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <div class="image-caption" style="margin-bottom: 0.25rem;">The card text has been aligned to the centre of the card so that its content looks more balanced now:</div>
+        <img src="assets/brainboostr/next iteration 3.png" alt="Before: Lower contrast and more text" class="case-study-image">
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <div class="image-caption" style="margin-bottom: 0.25rem;">The yellow text was hardly readable so its colour has been changed to a darker shade:</div>
+        <img src="assets/brainboostr/next iteration 4.png" alt="After: Higher contrast and less text" class="case-study-image">
+    </div>
+</div>
+
+<p>Originally, I was going to make CTA buttons in the main brand colour, however, it did not pass the contrast checker test (screenshots 1-2). So the background colour also had to be adjusted (screenshots 3-4):</p>
+
+<!-- 4 images in a row -->
+<div class="image-grid" style="grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 3rem;">
+    <img src="assets/brainboostr/contrast/scr 1.png" alt="UI improvement 1" class="case-study-image">
+    <img src="assets/brainboostr/contrast/Screenshot 2023-06-30 at 22.13 1.png" alt="UI improvement 2" class="case-study-image">
+    <img src="assets/brainboostr/contrast/scr 2.png" alt="UI improvement 3" class="case-study-image">
+    <img src="assets/brainboostr/contrast/Screenshot 2023-06-30 at 22.15 1.png" alt="UI improvement 4" class="case-study-image">
+</div>
+
+<!-- a row with 2 images and a text above each image -->
+<div class="iteration-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 3rem 0;">
+    
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <div class="image-caption" style="margin-bottom: 0.5rem;">A placeholder has been added in the signup form so that new users understand easier what they are supposed to type in the fields</div>
+        <img src="assets/brainboostr/next iteration 5.png" alt="Adding placeholders to forms" class="case-study-image">
+    </div>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <div class="image-caption" style="margin-bottom: 0.5rem;">An option to alternatively listen to the text has been added to areas with text blocks</div>
+        <img src="assets/brainboostr/next iteration 6.png" alt="Adding an option to listen content" class="case-study-image">
+    </div>
+</div>
+
+<!-- Video -->
+
+<div class="youtube-wrapper">
+  <div class="youtube-player" data-id="UYI3xHI-aP8"></div>
+</div>
+
+<style>
+.youtube-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 1rem auto;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.youtube-player {
+  position: relative;
+  padding-top: 56.25%; /* 16:9 ratio */
+  background: #000;
+  cursor: pointer;
+}
+
+.youtube-player img,
+.youtube-player iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  object-fit: cover;
+}
+
+.youtube-player .play-button {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 20%;
+  max-width: 68px;
+  aspect-ratio: 68 / 48;
+  background: url('https://i.imgur.com/TxzC70f.png') no-repeat center center;
+  background-size: contain;
+  transform: translate(-50%, -50%);
+  z-index: 2; /* ensure it's on top of the thumbnail */
+  pointer-events: none;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); /* makes it pop */
+}
+</style>
+
+<script>
+function labnolIframe(div) {
+  var iframe = document.createElement("iframe");
+  iframe.setAttribute(
+    "src",
+    "https://www.youtube-nocookie.com/embed/" + div.dataset.id + "?rel=0&vq=hd1080"
+  );
+  iframe.setAttribute("frameborder", "0");
+  iframe.setAttribute("allowfullscreen", "1");
+  iframe.setAttribute("loading", "lazy");
+  div.innerHTML = "";
+  div.appendChild(iframe);
+}
+
+function initYouTubeVideos() {
+  var players = document.querySelectorAll(".youtube-player");
+  players.forEach(function(player) {
+    var id = player.dataset.id;
+    var thumbnail = document.createElement("img");
+    thumbnail.src = "https://img.youtube.com/vi/" + id + "/maxresdefault.jpg"; // highest quality thumb
+    thumbnail.loading = "lazy";
+    player.appendChild(thumbnail);
+
+    var play = document.createElement("div");
+    play.className = "play-button";
+    player.appendChild(play);
+
+    player.addEventListener("click", function() {
+      labnolIframe(player);
+    });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", initYouTubeVideos);
+</script>
+
+
+<!--Summary-->
+
+<div class="summary-section" id="summary">
+            <h2 class="section-heading">Summary</h2>
+            
+            <div class="insights-list">
+            <h3 class="subsection-heading">Main Takeaways/Challenges</h3>
+                    <ul>
+                    <li>I have learned that design is an iterative process, and something that I had envisioned before creating the app, turned out throughout the process not relevant/not aligned with accessibility standards or business needs, etc., that is why it is crucial to be able to adapt to current requirements and look for new solutions.</li>
+                    <li>Moreover, peer feedback, usability study sessions and a <a href="https://drive.google.com/file/d/1jpeb4ql2qcTRWNseLUrGgorQb4zldEkz/view?usp=sharing" target="_blank">preference test</a> showed that there cannot be a universal design that will please absolutely everyone because each user is unique with their preferences and tastes, so the important thing here is first of all to correspond to UI design principles and accessibility guidelines.</li>
+                    <li>During the process I was also challenged by trying not to get distracted by features/flows that are not the MVP, so in the end a couple of screens and interactions have been deleted.</li>
+                </ul>
+            </div>
+
+
+        <div class="insights-list">
+            <h3 class="subsection-heading">What I Would Change</h3>
+            <p>All in all, the objective of the project has been achieved (approaching the problem and coming to a solution from different angles), however, I would still try to:</p>
+            <ul>
+                <li>Interview a larger number of individuals to get more specific insights.</li>
+                <li>Dedicate more time to UI design and its polishing</li>
+            </ul>
+        </div>
+
+        <div class="insights-list">
+        <h3 class="subsection-heading">Going Forward</h3>
+        <p>I would like to improve the design of the homepage and namely the graphics representing daily goals, making them more engaging and trendy. Besides, it would be nice to work on the mockup game interface, its animations and effects to make it look more realistic. Maybe I will also add more screens to show micro-interactions or extra pages to show a more detailed experience (profile page, account page, tracking etc.).</p>
+        </div>
+
+        <p>Thank you for reading about the process of creating BrainBoostr!</p>
+        <p style="font-size: 0.9em; font-style: italic;">Illustrations credits: Freepik</p>
+
+        <a href="index.html#projects" class="next-button">
+            Back to Projects →
+        </a>
+    </div>
+
+   
+
+    <!-- Footer -->
+    <footer>
+    <p>Copyright &#169; 2025 Anna Birdal</p>
+    <p><a href="imprint.html">Imprint</a></p>
+</footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Toggle hamburger menu
+        function toggleMenu() {
+            const menu = document.querySelector(".menu-links");
+            const icon = document.querySelector(".hamburger-icon");
+            menu.classList.toggle("open");
+            icon.classList.toggle("open");
+        }
+
+        // Jump to top functionality
+        window.addEventListener('scroll', function() {
+            const jumpButton = document.querySelector('.jump-to-top');
+            if (window.scrollY > 300) {
+                jumpButton.classList.add('visible');
+            } else {
+                jumpButton.classList.remove('visible');
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Modal functionality
+        function openModal(img) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = "block";
+            modalImg.src = img.src;
+            
+            // Prevent body scroll when modal is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = "none";
+            
+            // Restore body scroll
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on click outside or on escape key
+        window.onclick = function(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+    // Animate all banners with .animated-banner class
+    const banners = document.querySelectorAll('.animated-banner');
+    function handleBannerAnimation() {
+        banners.forEach(banner => {
+            const rect = banner.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 100) {
+                banner.classList.add('visible');
+            }
+        });
+    }
+    window.addEventListener('scroll', handleBannerAnimation);
+    handleBannerAnimation();
+});
+    </script>
+</body>
+</html>

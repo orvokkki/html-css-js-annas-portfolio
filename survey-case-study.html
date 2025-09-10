@@ -7,14 +7,8 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="mediaqueries.css">
     <style>
-        /* Custom cursor
-        body {
-            cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">✨</text></svg>'), auto;
-        }  */
-        
-        a, button {
-            cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text y="20" font-size="20">👆</text></svg>'), pointer;
-        }
+       
+       
 
         /* Jump to top button */
         .jump-to-top {
@@ -31,7 +25,7 @@
             transform: translateY(20px);
             transition: all 0.3s ease;
             z-index: 1000;
-            box-shadow: 0 4px 20px rgba(48, 48, 48, 0.15);
+            box-shadow: 0 4px 10px rgba(85, 84, 84, 0.15);
         }
 
         .jump-to-top.visible {
@@ -394,7 +388,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.8rem 1.5rem;
+            padding: 1.5rem 0;
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -403,7 +397,7 @@
             color: black;
             font-weight: 600;
             transition: all 0.3s ease;
-            margin: 2rem 0;
+            
         }
         
         .next-button:hover {
@@ -487,7 +481,7 @@
 </head>
 <body>
     <nav id="desktop-nav">
-        <div class="logo"> <img src="assets/logo ab.png" alt="Anna's logo"></div>
+        <div class="logo"> <img src="assets/logos/logo ab.png" alt="Anna's logo"></div>
         <div>
             <ul class="nav-links">
                 <li><a href="index.html">Work</a></li>
@@ -521,7 +515,7 @@
             <h1 class="case-study-title">Designing a Survey Tool to Drive Engagement and Lead Generation</h1>
             <p class="case-study-subtitle">Building an integrated feedback system for event organisers and attendees</p>
             
-            <img src="assets/Survey-yellow bg.png" alt="Survey tool overview" class="hero-image">
+            <img src="assets/case study previews/Survey-yellow bg.png" alt="Survey tool overview" class="hero-image">
             
             <div class="project-meta">
                 <div class="meta-left">
@@ -689,7 +683,7 @@
 
         <p>Working in a fast-paced environment without formal research challenged me to rely more heavily on design patterns, competitor analysis, and close collaboration with development teams. The result was a feature that launched on time and immediately provided value to our clients.</p>
 
-        <a href="index.html#projects" class="next-button">
+        <a href="pricing-case-study.html" class="next-button">
             Next Project →
         </a>
     </div>
@@ -700,9 +694,11 @@
         <img class="modal-content" id="modalImage">
     </div>
 
+    <!-- Footer -->
     <footer>
-        <p>Copyright &#169; 2025 Anna Birdal. All Rights Reserved.</p>
-    </footer>
+    <p>Copyright &#169; 2025 Anna Birdal</p>
+    <p><a href="imprint.html">Imprint</a></p>
+</footer>
 
     <script src="script.js"></script>
     <script>

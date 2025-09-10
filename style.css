@@ -33,7 +33,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     height: 12vh; /* Shorter navbar */
-    padding: 0 2rem;
+    padding: 0 5%; /* Changed from 2rem to 5% to match content margins */
     
     
     /* Sticky positioning */
@@ -107,12 +107,20 @@ a:hover {
     width: 56px;
     object-fit: contain;
     transition: transform 0.3s ease; /* Added smooth hover effect */
+
+    /* Add white circular background */
+    background: white;
+    border-radius: 50%;
+    padding: 4px;
+  
 }
 
 .logo img:hover {
     transform: scale(1.05); /* Subtle hover animation */
     cursor: default;
 }
+
+
 
 /* HAMBURGER MENU */
 
@@ -126,6 +134,7 @@ a:hover {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 0 5%; /* Match desktop nav padding */
 }
 
 .hamburger-menu {
@@ -210,8 +219,8 @@ a:hover {
 
 section {
     padding-top: 4vh;
-    height: 96vh;
-    margin: 0 10rem;
+    height: 75vh;
+    margin: 0 5%; /* Changed from 10rem to 5% to match nav */
     box-sizing: border-box;
     min-height: fit-content;
 }
@@ -400,15 +409,14 @@ article .icon {
 /* Projects section  */
 
 
-/* Projects section - Replace your existing project styles */
-
+/* Projects section - consistent margins */
 #projects {
     position: relative;
     padding-top: 4vh;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    padding-left: 5%; /* Match nav padding */
+    padding-right: 5%; /* Match nav padding */
+    max-width: none; /* Remove max-width constraint */
+    margin: 0; /* Reset margin since we're using padding */
 }
 
 /* Force 2 columns on desktop */
@@ -546,7 +554,95 @@ article .icon {
     margin-bottom: 1rem;
 }
 
+/* Image Modal Styles */
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow: auto;
+    animation: fadeIn 0.3s ease;
+}
 
+.image-modal.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content-wrapper {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    animation: zoomIn 0.3s ease;
+}
+
+.modal-image {
+    width: 100%;
+    height: auto;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.close-modal {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    border: 2px solid #fff;
+}
+
+.close-modal:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 768px) {
+    .modal-content-wrapper {
+        max-width: 95%;
+        max-height: 95%;
+    }
+    
+    .close-modal {
+        top: 10px;
+        right: 10px;
+        position: fixed;
+        z-index: 2001;
+    }
+    
+    .modal-image {
+        max-height: 80vh;
+    }
+}
 
 
 /* contact */
@@ -592,19 +688,95 @@ article .icon {
 
 
 
+
+    @media screen and (max-width: 768px) {
+    .skills-section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+    }
+    
+    .skills-wrapper {
+        gap: 0.6rem;
+    }
+    
+    .skill-tag {
+        font-size: 0.85rem;
+        padding: 0.5rem 1rem;
+    }}
+
+     /* Jump to top button */
+        .jump-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: rgba(238, 244, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(85, 84, 84, 0.15);
+        }
+
+        .jump-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .jump-to-top:hover {
+            transform: translateY(-5px);
+            background: rgb(242, 247, 255);
+        }
+
+
+/*CASE STUDIES*/
+.case-study-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: black;
+            margin-bottom: 1rem;
+        }
+        
+        .case-study-subtitle {
+            font-size: 1.2rem;
+            color: rgb(85, 85, 85);
+            margin-bottom: 2rem;
+        }
+
 /* FOOTER */
 
 footer {
-    height: 5vh;
-    position: relative; /* Footer positioning fix */
+    height: 1vh;
+    display: flex;
+    position: relative;
     z-index: 5;
     margin-top: 3rem;
-    padding: 10%;
-    align-items: flex;
-    justify-content: flex-start;
+    margin-bottom: 3rem;
+    padding: 3rem 5%; /* Changed padding added 5 to match nav */
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Nexa', sans-serif; /* Ensure consistent font */
 }
 
 footer p {
     text-align: center;
+    font-family: 'Nexa', sans-serif; /* Ensure consistent font */
+    margin: 0; /* Remove default margins */
 }
 
+footer a {
+    font-family: 'Nexa', sans-serif; /* Ensure consistent font */
+    color: rgb(85, 85, 85); /* Match the gray text color */
+    text-decoration: none;
+    transition: all 300ms ease;
+}
+
+footer a:hover {
+    color: black;
+    text-decoration: none;
+    text-underline-offset: 0.3rem;
+}
